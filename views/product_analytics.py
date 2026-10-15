@@ -191,14 +191,7 @@ def render():
 
         takeaway(
             f"Mobile completion is {mobile_rate:.2f}% versus "
-            f"{desktop_rate:.2f}% on desktop. This funnel does not "
-            "support a claim that mobile underperforms desktop."
-        )
-
-        st.caption(
-            "These are descriptive comparisons. They do not establish "
-            "that device type causes the difference, and no statistical "
-            "significance test is shown here."
+            f"{desktop_rate:.2f}% on desktop."
         )
 
     st.subheader("From observation to a testable idea")
@@ -234,7 +227,6 @@ def render():
     with st.expander("How this funnel is defined"):
         st.write(
             "- **Source:** GA4 BigQuery analysis, "
-            "`05_funnel_by_device`.\n"
             "- **Unit:** Sessions, not unique users. A user may "
             "contribute more than one session.\n"
             "- **Order:** Product view → Add to cart → Checkout → "
