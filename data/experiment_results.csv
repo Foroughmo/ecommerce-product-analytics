@@ -1,0 +1,3 @@
+segment,control_conversion_pct,treatment_conversion_pct,lift_pp,ci_lower_pp,ci_upper_pp
+Overall,0.1876,0.2988,0.1112,0.0864,0.1360
+Top 10% predicted uplift,1.6793,2.5027,0.8234,0.3917,1.2552
