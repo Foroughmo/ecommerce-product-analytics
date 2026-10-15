@@ -95,6 +95,74 @@ if section == "Experiment Results":
     fig.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
+elif section == "Experiment Design":
+    st.subheader("Proposed test: product-page reassurance")
+
+    st.info(
+        "This is a proposed experiment informed by GA4 analysis. "
+        "It has not been run."
+    )
+
+    st.write(
+        "**Hypothesis:** Clearer shipping estimates, visible return "
+        "information, and reassurance near Add to Cart will increase "
+        "purchase conversion among first-time visitors viewing a product."
+    )
+
+    st.write("**Control:** Existing product page.")
+    st.write(
+        "**Treatment:** Product page with shipping estimates, "
+        "return-policy visibility, and purchase reassurance."
+    )
+    st.write(
+        "**Assignment:** Randomize eligible users 50/50 between groups."
+    )
+    st.write("**Primary metric:** User-level purchase conversion.")
+
+    design = pd.DataFrame({
+        "Planning parameter": [
+            "Baseline conversion",
+            "Minimum detectable effect (relative)",
+            "Corresponding treatment conversion",
+            "Absolute effect",
+            "Significance level",
+            "Statistical power",
+            "Required users per group",
+            "Required users total",
+            "Estimated recruitment duration",
+        ],
+        "Value": [
+            "3.36%",
+            "20%",
+            "4.032%",
+            "+0.672 percentage points",
+            "5%",
+            "80%",
+            "12,348",
+            "24,696",
+            "Approximately 45 days (6.4 weeks)",
+        ],
+    })
+    st.dataframe(design, hide_index=True)
+
+    st.caption(
+        "The MDE is a planning choice, not a predicted result. "
+        "Duration is the earlier traffic-based planning estimate; "
+        "actual recruitment time depends on eligible traffic."
+    )
+
+    st.subheader("Proposed guardrails")
+    st.write(
+        "- Bounce and engagement\n"
+        "- Page performance\n"
+        "- Refunds and returns, if available"
+    )
+
+    st.caption(
+        "This design uses a user-level metric. The Product Analytics "
+        "funnel separately reports ordered, same-session completion. "
+        "Criteo advertising results do not evaluate this proposed change."
+    )
 
 elif section == "Product Analytics":
     funnel_path = (
