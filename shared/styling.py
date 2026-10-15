@@ -12,10 +12,29 @@ def apply_style():
             background-color: #F5F7FB;
             color: #172B4D;
         }
+        def apply_style():
+    """Apply consistent typography, spacing, and colors across pages."""
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-color: #F5F7FB;
+            color: #172B4D;
+        }
+
+        [data-testid="stHeader"] {
+            background-color: #F5F7FB;
+        }
 
         [data-testid="stMainBlockContainer"] {
             max-width: 1180px;
-            padding-top: 2rem;
+            padding-top: 5rem;
+            padding-bottom: 3rem;
+        }
+
+        [data-testid="stMainBlockContainer"] {
+            max-width: 1180px;
+            padding-top: 5rem;
             padding-bottom: 3rem;
         }
 
@@ -125,7 +144,7 @@ def apply_style():
             }
 
             [data-testid="stMainBlockContainer"] {
-                padding-top: 1rem;
+                padding-top: 4.5rem;
             }
 
             .report-card {
