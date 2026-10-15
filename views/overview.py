@@ -60,6 +60,7 @@ def render():
             "captures product views, cart additions, checkout, and "
             "purchases. The analysis follows these steps within a "
             "shopping session and compares results across devices.",
+            height=300,
         )
 
     with right:
