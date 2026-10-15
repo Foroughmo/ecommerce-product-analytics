@@ -96,6 +96,63 @@ if section == "Experiment Results":
     st.pyplot(fig)
     plt.close(fig)
     
+elif section == "Uplift Modeling":
+    results_path = (
+        Path(__file__).parent / "data" / "experiment_results.csv"
+    )
+    results = pd.read_csv(results_path)
+    top = results.loc[
+        results["segment"] == "Top 10% predicted uplift"
+    ].iloc[0]
+
+    st.subheader("Who benefits most from treatment?")
+
+    st.write(
+        "A T-learner estimates conversion probability under treatment "
+        "and under control. The difference is the predicted uplift. "
+        "Users in the test set were ranked by this score, and the "
+        "highest-scoring 10% were evaluated as a group."
+    )
+
+    col1, col2 = st.columns(2)
+    col1.metric(
+        "Top 10%: control conversion",
+        f"{top['control_conversion_pct']:.4f}%",
+    )
+    col2.metric(
+        "Top 10%: treatment conversion",
+        f"{top['treatment_conversion_pct']:.4f}%",
+    )
+
+    st.metric(
+        "Estimated treatment effect in this group",
+        f"{top['lift_pp']:+.4f} percentage points",
+    )
+
+    st.write(
+        f"**95% confidence interval:** "
+        f"{top['ci_lower_pp']:+.4f} to "
+        f"{top['ci_upper_pp']:+.4f} percentage points."
+    )
+
+    st.write(
+        "**Interpretation:** The estimated effect corresponds to about "
+        "8.2 additional conversions per 1,000 treated users in this "
+        "selected group."
+    )
+
+    st.write(
+        "**Business implication:** This group is a candidate for "
+        "targeted advertising. Profitability and whether targeting "
+        "outperforms broader deployment still require evaluation."
+    )
+
+    st.caption(
+        "The top 10% refers to predicted uplift rank, not a 10% "
+        "conversion probability. Effects are estimated for the group; "
+        "individual treatment effects are not directly observed."
+    )
+
 else:
     st.info("Report content will be added after the app setup is verified.")
 
