@@ -107,7 +107,7 @@ def render():
             "investigate targeting further.",
         )
 
-    st.subheader("What should the team do next?")
+    st.subheader("What's next?")
 
     product_tab, advertising_tab = st.tabs(
         ["Improve the product experience", "Evaluate advertising value"]
@@ -137,6 +137,7 @@ def render():
                 "Keep the current page for one group and show "
                 "clearer purchase information to the other. "
                 "Compare the share of users who purchase.",
+                height=220,
             )
 
         with right:
@@ -146,6 +147,7 @@ def render():
                 "12,348 users per group. Recruitment is estimated "
                 "at about 45 days, subject to confirming eligible "
                 "traffic and the purchase measurement window.",
+                height=220,
             )
 
         takeaway(
