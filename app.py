@@ -584,3 +584,33 @@ if section in ["Overview", "Experiment Results", "Uplift Modeling"]:
         "A positive effect in that group alone does not prove that "
         "targeting it outperforms other targeting policies."
     )
+
+
+# Temporary preview of the redesigned pages
+st.divider()
+
+with st.expander("Preview the new design", expanded=False):
+    preview_page = st.selectbox(
+        "Choose a redesigned page",
+        ["Overview", "Product Analytics", "Experiment Design"],
+        key="design_preview_page",
+    )
+
+    show_preview = st.checkbox(
+        "Show redesigned page",
+        key="show_design_preview",
+    )
+
+    if show_preview:
+        from shared.styling import apply_style
+
+        apply_style()
+
+        if preview_page == "Overview":
+            from views.overview import render
+        elif preview_page == "Product Analytics":
+            from views.product_analytics import render
+        else:
+            from views.experiment_design import render
+
+        render()
