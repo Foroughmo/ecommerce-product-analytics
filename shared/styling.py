@@ -64,7 +64,7 @@ def apply_style():
 
         .report-eyebrow {
             color: #087F8C;
-            font-size: 1rem;
+            font-size: 1.5 rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
