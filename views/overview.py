@@ -5,49 +5,6 @@ from shared.styling import insight_card, page_header, takeaway
 
 
 def render():
-    page_header(
-        title="From Browsing to Buying",
-        subtitle=(
-            "An e-commerce case study: identify where shoppers leave, "
-            "design a product test, and explore whether advertising "
-            "changes purchasing behavior."
-        ),
-        eyebrow="Overview · Business questions & findings",
-    )
-
-    # Introduce the business problem before displaying results.
-    st.write(
-        "An e-commerce team wants more visitors to become customers. "
-        "Before investing in changes, it needs to understand where "
-        "the shopping journey breaks down and how to measure whether "
-        "an intervention actually helps."
-    )
-
-    left, right = st.columns(2)
-
-    with left:
-        insight_card(
-            "01 · Understand the shopping journey",
-            "Where do shoppers leave?",
-            "GA4 store data describes product views, cart additions, "
-            "checkout, and purchases. We use it to identify an "
-            "opportunity and propose a product-page experiment.",
-        )
-
-    with right:
-        insight_card(
-            "02 · Evaluate an intervention",
-            "Does advertising change behavior?",
-            "A separate Criteo benchmark contains treatment and control "
-            "groups. We evaluate overall conversion lift and explore "
-            "which users may respond more strongly.",
-        )
-
-    st.caption(
-        "Two independent datasets, two complementary questions. "
-        "The Criteo analysis does not test the proposed GA4 store change."
-    )
-
     funnel = load_funnel()
     results = load_experiment_results()
 
@@ -72,154 +29,233 @@ def render():
         "overall_conversion_rate",
     ].iloc[0]
 
-    st.subheader("Three findings to take away")
+    extra_purchases = overall["lift_pp"] * 100
+
+    page_header(
+        title="From Browsing to Buying",
+        subtitle=(
+            "Where do shoppers leave—and what could help "
+            "more of them become customers?"
+        ),
+        eyebrow="An e-commerce case study",
+    )
+
+    st.write(
+        "Getting people to visit a store is only part of the challenge. "
+        "They still need to find something they want, add it to their "
+        "cart, and complete a purchase. This project follows that "
+        "journey, identifies an opportunity to improve it, and "
+        "outlines how to test whether a change makes a difference."
+    )
+
+    st.subheader("A first look at the data")
+
+    left, right = st.columns(2)
+
+    with left:
+        insight_card(
+            "Shopping behavior · Google Analytics",
+            "Follow the path to purchase",
+            "Public sample data from the Google Merchandise Store "
+            "captures product views, cart additions, checkout, and "
+            "purchases. The analysis follows these steps within a "
+            "shopping session and compares results across devices.",
+        )
+
+    with right:
+        insight_card(
+            "Advertising experiment · Criteo",
+            "Measure what advertising changes",
+            "A sample of 1 million records from a public advertising "
+            "experiment lets us compare purchase rates between "
+            "people assigned to an advertising treatment and "
+            "a control group.",
+        )
+
+    st.caption(
+        "These datasets come from different businesses. "
+        "The store data helps identify a product opportunity; "
+        "the advertising data provides a separate experiment "
+        "to analyze."
+    )
+
+    st.subheader("What stood out")
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         insight_card(
-            "GA4 · Observed shopping behavior",
-            "About 18–19 in 100 reach the cart",
-            "Across devices, this is the share of product-view sessions "
-            "that progress to Add to Cart—the largest drop-off "
-            "in the measured funnel.",
+            "01 · The shopping journey",
+            "Most product views stop before the cart",
+            f"Across devices, only {min_cart_rate:.1f}–"
+            f"{max_cart_rate:.1f}% of sessions with a product view "
+            "continue to Add to Cart. This is the largest drop-off "
+            "in the measured journey.",
         )
 
     with col2:
         insight_card(
-            "Criteo · Overall benchmark",
-            f"+{overall['lift_pp']:.4f} percentage points",
-            "The treatment group has a higher conversion rate than "
-            "control. The confidence interval for the difference "
-            "is entirely above zero.",
+            "02 · The advertising experiment",
+            f"About {extra_purchases:.0f} extra purchases per 10,000",
+            "The advertising treatment increased conversion "
+            "compared with control in the analyzed sample. "
+            "The estimated difference is statistically significant.",
         )
 
     with col3:
         insight_card(
-            "Criteo · Selected test-set group",
-            f"+{top['lift_pp']:.4f} percentage points",
-            "The highest-ranked 10% by predicted uplift show a positive "
-            "effect. This supports further targeting evaluation; "
-            "it does not establish an optimal policy.",
+            "03 · Differences between shoppers",
+            "Some shoppers may respond more strongly",
+            "The 10% ranked highest by the model had an estimated "
+            f"conversion increase of {top['lift_pp']:.2f} percentage "
+            "points on held-out data. This is a reason to "
+            "investigate targeting further.",
         )
 
-    st.subheader("What's Next")
+    st.subheader("What should the team do next?")
 
     product_tab, advertising_tab = st.tabs(
-        ["Product experience", "Advertising & targeting"]
+        ["Improve the product experience", "Evaluate advertising value"]
     )
 
     with product_tab:
-        left, right = st.columns([3, 2])
+        st.markdown("#### Give shoppers more clarity before they add to cart")
+
+        st.write(
+            "Test whether clearer shipping estimates, return "
+            "information, and purchase reassurance near Add to Cart "
+            "help first-time product viewers complete a purchase."
+        )
+
+        st.write(
+            "The drop-off tells us where to investigate. It does "
+            "not tell us why people leave. This proposed test would "
+            "check whether clearer information helps them decide."
+        )
+
+        left, right = st.columns(2)
 
         with left:
-            st.markdown("#### Test clearer information near Add to Cart")
-            st.write(
-                "Show first-time product viewers clearer shipping "
-                "estimates, return information, and purchase reassurance."
-            )
-            st.write(
-                "The funnel shows where to investigate. It does not "
-                "prove that uncertainty about shipping or returns "
-                "causes visitors to leave."
+            insight_card(
+                "Proposed test · Not yet run",
+                "Compare two product-page experiences",
+                "Keep the current page for one group and show "
+                "clearer purchase information to the other. "
+                "Compare the share of users who purchase.",
             )
 
         with right:
             insight_card(
-                "Proposed experiment · Not yet run",
+                "Initial planning estimate",
                 "24,696 participants",
-                "12,348 users per group. About 45 days of recruitment "
-                "at the earlier traffic estimate, plus any required "
-                "outcome follow-up.",
+                "12,348 users per group. Recruitment is estimated "
+                "at about 45 days, subject to confirming eligible "
+                "traffic and the purchase measurement window.",
             )
 
         takeaway(
-            "Mobile full-funnel completion is "
-            f"{mobile_rate:.2f}% versus {desktop_rate:.2f}% on desktop. "
+            f"Mobile full-funnel completion is {mobile_rate:.2f}%, "
+            f"compared with {desktop_rate:.2f}% on desktop. "
+            "This difference also deserves investigation."
         )
 
     with advertising_tab:
-        left, right = st.columns([3, 2])
+        st.markdown("#### Check whether the extra purchases justify the cost")
 
-        with left:
-            st.markdown("#### Evaluate value before deployment")
-            st.write(
-                "The benchmark shows positive conversion lift overall "
-                "and within the selected high-uplift group."
-            )
-            st.write(
-                "Before applying a targeting strategy in production, "
-                "evaluate advertising costs, incremental conversion "
-                "value, and performance on new data."
-            )
-
-        with right:
-            insight_card(
-                "Evidence status",
-                "Promising, not deployment-ready",
-                "Positive conversion lift alone does not establish "
-                "profitability or prove that targeting the top 10% "
-                "outperforms other policies.",
-            )
-
-        takeaway(
-            "Criteo non-uniformly subsampled the public dataset to "
-            "conceal original incrementality. These are benchmark "
-            "findings, not estimates of actual advertiser ROI."
+        st.write(
+            "The advertising treatment increased purchases in "
+            "this benchmark. A business decision would also need "
+            "to account for the cost of advertising and the "
+            "value of each additional purchase."
         )
 
-    with st.expander("Supporting numbers and experiment assumptions"):
-        st.markdown("#### GA4 shopping funnel")
+        st.write(
+            "The model also identifies a group with a larger "
+            "estimated response. Before using that group for "
+            "targeting, compare alternative strategies and "
+            "check whether the results hold on new data."
+        )
+
+        takeaway(
+            "The results support further evaluation. They do not "
+            "yet show that advertising is profitable or that "
+            "targeting the highest-ranked 10% is the best strategy."
+        )
+
+        st.caption(
+            "Criteo altered the public sample through non-uniform "
+            "subsampling to conceal the original advertising "
+            "effect. These estimates describe the benchmark, "
+            "not the advertiser's original business results."
+        )
+
+    with st.expander("See the numbers and how they were calculated"):
+        st.markdown("#### Store funnel")
+
         st.write(
             f"Product-view-to-cart rates range from "
             f"{min_cart_rate:.2f}% to {max_cart_rate:.2f}%. "
-            "Counts represent sessions, not unique users. "
-            "Full-funnel completion requires product view, cart, "
-            "checkout, and purchase in that order within one session."
+            "The funnel counts sessions, not unique people. "
+            "Full-funnel completion requires a product view, "
+            "cart addition, checkout, and purchase, in that "
+            "order within the same session."
         )
 
-        st.markdown("#### Proposed product-page test")
+        st.markdown("#### Proposed product-page experiment")
+
         st.write(
-            "User-level 50/50 assignment; planning baseline 3.36%; "
-            "20% relative minimum detectable effect; target conversion "
-            "4.032%; 80% power; 5% significance level; two-sided test."
+            "Users would be randomly assigned equally between "
+            "the two versions. Planning assumptions: 3.36% baseline "
+            "purchase conversion; 20% relative minimum detectable "
+            "improvement, equivalent to a target rate of 4.032%; "
+            "80% power; and a two-sided 5% significance level."
         )
+
         st.caption(
-            "The baseline source, eligible traffic definition, and "
-            "purchase measurement window still need confirmation. "
-            "The detectable target is not a predicted result."
+            "The baseline source, eligible traffic, and purchase "
+            "measurement window still need confirmation. "
+            "The target improvement is a planning assumption, "
+            "not a forecast."
         )
 
-        st.markdown("#### Criteo overall result")
+        st.markdown("#### Overall advertising result")
+
         st.write(
-            f"Control: {overall['control_conversion_pct']:.4f}%. "
-            f"Treatment: {overall['treatment_conversion_pct']:.4f}%. "
-            f"Absolute lift: {overall['lift_pp']:+.4f} percentage points. "
-            f"95% CI: {overall['ci_lower_pp']:+.4f} to "
+            f"Control conversion: "
+            f"{overall['control_conversion_pct']:.4f}%. "
+            f"Treatment conversion: "
+            f"{overall['treatment_conversion_pct']:.4f}%. "
+            f"Difference: {overall['lift_pp']:+.4f} percentage points. "
+            f"95% confidence interval: "
+            f"{overall['ci_lower_pp']:+.4f} to "
             f"{overall['ci_upper_pp']:+.4f} percentage points."
         )
 
-        st.markdown("#### Criteo top-10% result")
+        st.markdown("#### Highest-ranked 10%")
+
         st.write(
-            f"Estimated effect: {top['lift_pp']:+.4f} percentage points. "
-            f"95% CI: {top['ci_lower_pp']:+.4f} to "
+            f"Estimated conversion difference: "
+            f"{top['lift_pp']:+.4f} percentage points. "
+            f"95% confidence interval: "
+            f"{top['ci_lower_pp']:+.4f} to "
             f"{top['ci_upper_pp']:+.4f} percentage points."
         )
+
         st.caption(
-            "Overall analysis: 1,000,000 sampled rows. "
-            "Model training: 700,000 rows. "
-            "Test-set evaluation: 300,000 rows. "
-            "Top predicted-uplift decile: 30,000 test-set users."
+            "Overall analysis: 1,000,000 sampled records. "
+            "Model training: 700,000 records. "
+            "Held-out evaluation: 300,000 records. "
+            "Highest-ranked group: 30,000 held-out records."
         )
 
-    with st.expander("Explore the report"):
-        st.write(
-            "- **Product Analytics:** Explore the session funnel "
-            "using the device filter.\n"
-            "- **Experiment Design:** Understand the proposed change, "
-            "sample size, timing, and guardrails.\n"
-            "- **Experiment Results:** Review overall advertising "
-            "conversion lift and uncertainty.\n"
-            "- **Uplift Modeling:** Understand how the model identifies "
-            "users with higher predicted treatment effects."
+    with st.expander("Where to explore next"):
+        st.markdown(
+            "- **Product Analytics:** Follow the shopping journey "
+            "and compare devices.\n"
+            "- **Experiment Design:** Review the proposed "
+            "product-page test.\n"
+            "- **Experiment Results:** See how advertising "
+            "affected purchases.\n"
+            "- **Uplift Modeling:** Explore who may respond "
+            "most to advertising."
         )
