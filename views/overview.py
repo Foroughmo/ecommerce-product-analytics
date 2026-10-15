@@ -48,7 +48,7 @@ def render():
         "outlines how to test whether a change makes a difference."
     )
 
-    st.subheader("A first look at the data")
+    st.subheader(" 📊 A first look at the data")
 
     left, right = st.columns(2)
 
