@@ -156,11 +156,17 @@ def page_header(title, subtitle, eyebrow="Product analytics case study"):
     )
 
 
-def insight_card(label, title, body):
+def insight_card(label, title, body, height=None):
     """Show a reusable card with a short explanation."""
+    style = (
+        f"height: {int(height)}px; box-sizing: border-box; overflow: auto;"
+        if height is not None
+        else ""
+    )
+
     st.markdown(
         f"""
-        <div class="report-card">
+        <div class="report-card" style="{style}">
             <div class="report-card-label">{escape(label)}</div>
             <div class="report-card-title">{escape(title)}</div>
             <div class="report-card-body">{escape(body)}</div>
