@@ -95,7 +95,75 @@ if section == "Experiment Results":
     fig.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
-    
+
+elif section == "Product Analytics":
+    funnel_path = (
+        Path(__file__).parent / "data" / "funnel_by_device.csv"
+    )
+    funnel = pd.read_csv(funnel_path)
+
+    st.subheader("Shopping funnel by device")
+
+    device = st.selectbox(
+        "Choose a device",
+        funnel["device_category"].tolist(),
+        format_func=str.title,
+    )
+
+    row = funnel.loc[funnel["device_category"] == device].iloc[0]
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Product-view sessions", f"{int(row['view_sessions']):,}")
+    col2.metric("Purchase sessions", f"{int(row['purchase_sessions']):,}")
+    col3.metric(
+        "View-to-purchase rate",
+        f"{row['overall_conversion_rate']:.2f}%",
+    )
+
+    stages = ["Product view", "Add to cart", "Checkout", "Purchase"]
+    counts = [
+        int(row["view_sessions"]),
+        int(row["cart_sessions"]),
+        int(row["checkout_sessions"]),
+        int(row["purchase_sessions"]),
+    ]
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    bars = ax.barh(stages, counts, color="#2563EB")
+    ax.invert_yaxis()
+    ax.bar_label(
+        bars,
+        labels=[f"{count:,}" for count in counts],
+        padding=5,
+    )
+    ax.set_xlim(0, max(counts) * 1.2)
+    ax.set_xlabel("Sessions")
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout()
+    st.pyplot(fig)
+    plt.close(fig)
+
+    st.subheader("Step conversion rates")
+    rates = pd.DataFrame({
+        "Transition": [
+            "Product view → Add to cart",
+            "Add to cart → Checkout",
+            "Checkout → Purchase",
+        ],
+        "Conversion rate": [
+            f"{row['view_to_cart_rate']:.2f}%",
+            f"{row['cart_to_checkout_rate']:.2f}%",
+            f"{row['checkout_to_purchase_rate']:.2f}%",
+        ],
+    })
+    st.dataframe(rates, hide_index=True)
+
+    st.caption(
+        "Source: GA4 BigQuery analysis, 05_funnel_by_device. "
+        "Counts represent sessions, not unique users. "
+        "View-to-purchase rate = purchase sessions / product-view sessions."
+    )
+
 elif section == "Uplift Modeling":
     results_path = (
         Path(__file__).parent / "data" / "experiment_results.csv"
