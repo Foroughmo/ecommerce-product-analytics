@@ -74,13 +74,6 @@ def render():
             height=220,
         )
 
-    st.caption(
-        "These datasets come from different businesses. "
-        "The store data helps identify a product opportunity; "
-        "the advertising data provides a separate experiment "
-        "to analyze."
-    )
-
     st.subheader("What stood out")
 
     col1, col2, col3 = st.columns(3)
