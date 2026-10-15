@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="E-commerce Product Analytics",
@@ -67,6 +68,36 @@ if section == "Experiment Results":
     )
 else:
     st.info("Report content will be added after the app setup is verified.")
+
+    st.subheader("Conversion by experiment group")
+
+    fig, ax = plt.subplots(figsize=(7, 3.5))
+
+    rates = [
+        overall["control_conversion_pct"],
+        overall["treatment_conversion_pct"],
+    ]
+
+    bars = ax.bar(
+        ["Control", "Treatment"],
+        rates,
+        color=["#94A3B8", "#2563EB"],
+        width=0.5,
+    )
+
+    ax.bar_label(
+        bars,
+        labels=[f"{rate:.4f}%" for rate in rates],
+        padding=5,
+    )
+    ax.set_ylabel("Conversion rate (%)")
+    ax.set_ylim(0, max(rates) * 1.25)
+    ax.spines[["top", "right"]].set_visible(False)
+
+    fig.tight_layout()
+    st.pyplot(fig)
+    plt.close(fig)
+
 
 st.caption(
     "GA4 and Criteo are separate datasets. "
