@@ -332,8 +332,77 @@ elif section == "Uplift Modeling":
         "individual treatment effects are not directly observed."
     )
 
-else:
-    st.info("Report content will be added after the app setup is verified.")
+elif section == "Overview":
+    st.subheader("Executive summary")
+
+    st.write(
+        "This project investigates where shoppers leave an e-commerce "
+        "purchase funnel, proposes a product experiment, and separately "
+        "evaluates advertising effectiveness using randomized data."
+    )
+
+    st.subheader("1. Product opportunity — GA4")
+
+    st.write(
+        "The largest funnel drop-off occurs between product view and "
+        "Add to Cart: only 17.88%–18.93% of product-view sessions reach "
+        "the cart stage across device groups. Mobile full-funnel "
+        "completion is 3.77%, compared with 3.50% on desktop."
+    )
+
+    st.write(
+        "**Recommendation:** Test clearer shipping estimates, return "
+        "information, and reassurance near Add to Cart for first-time "
+        "product viewers. These are hypotheses to test; the funnel "
+        "does not establish the cause of drop-off."
+    )
+
+    st.subheader("2. Proposed experiment")
+
+    st.write(
+        "Randomize eligible users 50/50 between the existing product "
+        "page and the revised page. The design uses a 3.36% baseline "
+        "purchase conversion rate and a 20% relative minimum detectable "
+        "effect, with 80% power and a 5% significance level."
+    )
+
+    st.write(
+        "**Planned sample:** 24,696 users total "
+        "(12,348 per group), requiring approximately 45 days of "
+        "recruitment under the earlier traffic estimate. "
+        "This experiment has not been run."
+    )
+
+    st.subheader("3. Advertising effectiveness — Criteo")
+
+    st.write(
+        "In the separate randomized advertising analysis, conversion "
+        "increased from 0.1876% in control to 0.2988% in treatment: "
+        "an absolute lift of 0.1112 percentage points "
+        "(95% CI: 0.0864–0.1360 percentage points)."
+    )
+
+    st.write(
+        "For the top 10% of test-set users ranked by predicted uplift, "
+        "the estimated treatment effect was 0.8234 percentage points "
+        "(95% CI: 0.3917–1.2552 percentage points)."
+    )
+
+    st.write(
+        "**Recommendation:** Evaluate the selected group's advertising "
+        "costs and incremental conversion value before deployment. "
+        "A positive conversion effect alone does not establish "
+        "profitability or an optimal targeting strategy."
+    )
+
+    st.subheader("Explore the report")
+
+    st.write(
+        "- **Product Analytics:** Filter the session funnel by device.\n"
+        "- **Experiment Design:** Review the proposed test and sample size.\n"
+        "- **Experiment Results:** Inspect the overall advertising effect.\n"
+        "- **Uplift Modeling:** Review the selected high-uplift group."
+    )
 
 st.caption(
     "GA4 and Criteo are separate datasets. "
