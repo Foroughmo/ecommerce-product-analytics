@@ -32,7 +32,7 @@ def render():
     extra_purchases = overall["lift_pp"] * 100
 
     page_header(
-        title="From Browsing to Buying",
+        title=" 🛒 From Browsing to Buying",
         subtitle=(
             "Where do shoppers leave and what could help "
             "more of them become customers?"
@@ -74,7 +74,7 @@ def render():
             height=220,
         )
 
-    st.subheader("What stood out")
+    st.subheader(" 💡  What stood out")
 
     col1, col2, col3 = st.columns(3)
 
