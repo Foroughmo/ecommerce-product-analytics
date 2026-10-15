@@ -6,7 +6,7 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="From browsing to buying",
+        title="From Browsing to Buying",
         subtitle=(
             "An e-commerce case study: identify where shoppers leave, "
             "design a product test, and explore whether advertising "
@@ -103,7 +103,7 @@ def render():
             "it does not establish an optimal policy.",
         )
 
-    st.subheader("What should the team do next?")
+    st.subheader("What's Next")
 
     product_tab, advertising_tab = st.tabs(
         ["Product experience", "Advertising & targeting"]
@@ -136,8 +136,6 @@ def render():
         takeaway(
             "Mobile full-funnel completion is "
             f"{mobile_rate:.2f}% versus {desktop_rate:.2f}% on desktop. "
-            "This funnel does not support a claim that mobile "
-            "underperforms desktop."
         )
 
     with advertising_tab:
