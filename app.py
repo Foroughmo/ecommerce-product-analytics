@@ -114,7 +114,10 @@ elif section == "Product Analytics":
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Product-view sessions", f"{int(row['view_sessions']):,}")
-    col2.metric("Purchase sessions", f"{int(row['purchase_sessions']):,}")
+    col2.metric(
+    "Full-funnel purchase sessions",
+    f"{int(row['purchase_sessions']):,}",
+)
     col3.metric(
         "View-to-purchase rate",
         f"{row['overall_conversion_rate']:.2f}%",
@@ -160,8 +163,12 @@ elif section == "Product Analytics":
 
     st.caption(
         "Source: GA4 BigQuery analysis, 05_funnel_by_device. "
+        "Ordered, same-session funnel: product view → add to cart → "
+        "checkout → purchase. Each step must occur strictly after the "
+        "previous step within the same user/session. "
         "Counts represent sessions, not unique users. "
-        "View-to-purchase rate = purchase sessions / product-view sessions."
+        "Conversion is the share of product-view sessions completing "
+        "all four steps. Steps are not matched by product."
     )
 
 elif section == "Uplift Modeling":
