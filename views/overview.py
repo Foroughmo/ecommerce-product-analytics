@@ -34,7 +34,7 @@ def render():
     page_header(
         title="From Browsing to Buying",
         subtitle=(
-            "Where do shoppers leave—and what could help "
+            "Where do shoppers leave and what could help "
             "more of them become customers?"
         ),
         eyebrow="An e-commerce case study",
@@ -70,6 +70,7 @@ def render():
             "experiment lets us compare purchase rates between "
             "people assigned to an advertising treatment and "
             "a control group.",
+            height=300,
         )
 
     st.caption(
@@ -77,6 +78,7 @@ def render():
         "The store data helps identify a product opportunity; "
         "the advertising data provides a separate experiment "
         "to analyze."
+        height=300,
     )
 
     st.subheader("What stood out")
