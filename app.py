@@ -27,6 +27,7 @@ section = st.sidebar.radio(
 )
 
 st.header(section)
+
 if section == "Experiment Results":
     results_path = (
         Path(__file__).parent / "data" / "experiment_results.csv"
@@ -95,6 +96,7 @@ if section == "Experiment Results":
     fig.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
+
 elif section == "Experiment Design":
     st.subheader("Proposed test: product-page reassurance")
 
@@ -145,35 +147,6 @@ elif section == "Experiment Design":
     })
     st.dataframe(design, hide_index=True)
 
-        st.subheader("Key findings across devices")
-
-    st.write(
-        "**The largest drop-off occurs between product view and "
-        "Add to Cart.** Only 17.88%–18.93% of product-view sessions "
-        "reach the cart stage across the three device groups."
-    )
-
-    st.write(
-        "**Mobile does not underperform desktop in this funnel.** "
-        "Full-funnel completion is 3.77% on mobile versus 3.50% "
-        "on desktop. These are descriptive comparisons; they do "
-        "not establish that device type causes the difference."
-    )
-
-    st.write(
-        "**Proposed next action:** Test clearer shipping estimates "
-        "and return information near Add to Cart for first-time "
-        "product viewers. The funnel identifies where to investigate; "
-        "it does not establish why visitors leave."
-    )
-
-    st.caption(
-        "These findings summarize all three device groups and remain "
-        "the same when the device selector changes. The proposed "
-        "first-time-visitor experiment targets a narrower population "
-        "than this device-level funnel."
-    )
-
     st.caption(
         "The MDE is a planning choice, not a predicted result. "
         "Duration is the earlier traffic-based planning estimate; "
@@ -210,11 +183,14 @@ elif section == "Product Analytics":
     row = funnel.loc[funnel["device_category"] == device].iloc[0]
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Product-view sessions", f"{int(row['view_sessions']):,}")
+    col1.metric(
+        "Product-view sessions",
+        f"{int(row['view_sessions']):,}",
+    )
     col2.metric(
-    "Full-funnel purchase sessions",
-    f"{int(row['purchase_sessions']):,}",
-)
+        "Full-funnel purchase sessions",
+        f"{int(row['purchase_sessions']):,}",
+    )
     col3.metric(
         "View-to-purchase rate",
         f"{row['overall_conversion_rate']:.2f}%",
@@ -239,11 +215,13 @@ elif section == "Product Analytics":
     ax.set_xlim(0, max(counts) * 1.2)
     ax.set_xlabel("Sessions")
     ax.spines[["top", "right"]].set_visible(False)
+
     fig.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
 
     st.subheader("Step conversion rates")
+
     rates = pd.DataFrame({
         "Transition": [
             "Product view → Add to cart",
@@ -257,6 +235,35 @@ elif section == "Product Analytics":
         ],
     })
     st.dataframe(rates, hide_index=True)
+
+    st.subheader("Key findings across devices")
+
+    st.write(
+        "**The largest drop-off occurs between product view and "
+        "Add to Cart.** Only 17.88%–18.93% of product-view sessions "
+        "reach the cart stage across the three device groups."
+    )
+
+    st.write(
+        "**Mobile does not underperform desktop in this funnel.** "
+        "Full-funnel completion is 3.77% on mobile versus 3.50% "
+        "on desktop. These are descriptive comparisons; they do "
+        "not establish that device type causes the difference."
+    )
+
+    st.write(
+        "**Proposed next action:** Test clearer shipping estimates "
+        "and return information near Add to Cart for first-time "
+        "product viewers. The funnel identifies where to investigate; "
+        "it does not establish why visitors leave."
+    )
+
+    st.caption(
+        "These findings summarize all three device groups and remain "
+        "the same when the device selector changes. The proposed "
+        "first-time-visitor experiment targets a narrower population "
+        "than this device-level funnel."
+    )
 
     st.caption(
         "Source: GA4 BigQuery analysis, 05_funnel_by_device. "
