@@ -7,14 +7,12 @@ from shared.styling import insight_card, page_header, takeaway
 def render():
     page_header(
         title="Can clearer information help shoppers buy?",
-        subtitle=(
-            "Test shipping estimates and return information "
-            "near Add to Cart."
-        ),
         eyebrow="Experiment design · Proposed, not yet run",
     )
 
     st.write(
+        "Test shipping estimates and return information "
+        "near Add to Cart."
         "Only about 18–19 in 100 product-view sessions reach the cart. "
         "Could clearer shipping and return information help? "
         "This experiment would test that idea."
