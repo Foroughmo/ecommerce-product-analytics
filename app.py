@@ -66,8 +66,6 @@ if section == "Experiment Results":
         "Source: completed Criteo analysis. Displayed values are rounded. "
         "Segment results will be covered under Uplift Modeling."
     )
-else:
-    st.info("Report content will be added after the app setup is verified.")
 
     st.subheader("Conversion by experiment group")
 
@@ -97,7 +95,9 @@ else:
     fig.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
-
+    
+else:
+    st.info("Report content will be added after the app setup is verified.")
 
 st.caption(
     "GA4 and Criteo are separate datasets. "
