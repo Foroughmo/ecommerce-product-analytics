@@ -60,7 +60,7 @@ def render():
             "captures product views, cart additions, checkout, and "
             "purchases. The analysis follows these steps within a "
             "shopping session and compares results across devices.",
-            height=200,
+            height=220,
         )
 
     with right:
@@ -71,7 +71,7 @@ def render():
             "experiment lets us compare purchase rates between "
             "people assigned to an advertising treatment and "
             "a control group.",
-            height=200,
+            height=220,
         )
 
     st.caption(
