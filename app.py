@@ -216,71 +216,223 @@ elif section == "Product Analytics":
 
 
 elif section == "Experiment Design":
-    st.subheader("Proposed test: product-page reassurance")
+    st.subheader("Can clearer product information help visitors buy?")
 
     st.info(
-        "This is a proposed experiment informed by GA4 analysis. "
-        "It has not been run."
+        "Proposed test — this experiment has not been run. "
+        "This page explains what we would change and how we would "
+        "evaluate whether it helps."
+    )
+
+    st.subheader("Why consider this change?")
+
+    st.write(
+        "Our shopping-funnel analysis found that the largest drop-off "
+        "happens between viewing a product and adding it to the cart. "
+        "Across devices, only about 18–19 out of every 100 product-view "
+        "sessions reach Add to Cart."
     )
 
     st.write(
-        "**Hypothesis:** Clearer shipping estimates, visible return "
-        "information, and reassurance near Add to Cart will increase "
-        "purchase conversion among first-time visitors viewing a product."
+        "One possible explanation is uncertainty about shipping or "
+        "returns. The data does not tell us whether this is the cause. "
+        "An experiment would help us test that explanation."
     )
 
-    st.write("**Control:** Existing product page.")
+    st.subheader("What would visitors experience?")
+
+    control_col, treatment_col = st.columns(2)
+
+    with control_col:
+        st.markdown("### A · Current experience")
+        st.write("Visitors see the existing product page.")
+
+    with treatment_col:
+        st.markdown("### B · Proposed experience")
+        st.write(
+            "Visitors see the product page with:\n"
+            "- Clearer shipping estimates\n"
+            "- More visible return information\n"
+            "- Purchase reassurance near Add to Cart"
+        )
 
     st.write(
-        "**Treatment:** Product page with shipping estimates, "
-        "return-policy visibility, and purchase reassurance."
+        "**Hypothesis:** Giving first-time product viewers clearer "
+        "information will reduce uncertainty and increase the share "
+        "who make a purchase."
+    )
+
+    st.subheader("How would we run the test?")
+
+    st.write(
+        "First-time visitors who view a product would be randomly "
+        "assigned to one of the two experiences, with half in each "
+        "group. Assignment would be at the user level, so a returning "
+        "participant would continue to see the same version."
     )
 
     st.write(
-        "**Assignment:** Randomize eligible users 50/50 between groups."
+        "**Main outcome:** The percentage of eligible users in each "
+        "group who make a purchase. We would compare this percentage "
+        "between the two groups."
     )
 
-    st.write("**Primary metric:** User-level purchase conversion.")
+    st.subheader("What improvement are we planning to detect?")
 
-    design = pd.DataFrame({
-        "Planning parameter": [
-            "Baseline conversion",
-            "Minimum detectable effect (relative)",
-            "Corresponding treatment conversion",
-            "Absolute effect",
-            "Significance level",
-            "Statistical power",
-            "Required users per group",
-            "Required users total",
-            "Estimated recruitment duration",
-        ],
-        "Value": [
-            "3.36%",
-            "20%",
-            "4.032%",
-            "+0.672 percentage points",
-            "5%",
-            "80%",
-            "12,348",
-            "24,696",
-            "Approximately 45 days (6.4 weeks)",
-        ],
-    })
-    st.dataframe(design, hide_index=True)
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Planning baseline", "3.36%")
+    col2.metric("Detectable target", "4.032%")
+    col3.metric("Absolute improvement", "+0.672 pp")
+
+    st.write(
+        "For every 1,000 eligible users, this means moving from about "
+        "**34 purchasers to 40 purchasers**—roughly **7 additional "
+        "purchasers**."
+    )
 
     st.caption(
-        "The MDE is a planning choice, not a predicted result. "
-        "Duration is the earlier traffic-based planning estimate; "
-        "actual recruitment time depends on eligible traffic."
+        "pp means percentage points. A 20% relative improvement on "
+        "a 3.36% baseline equals a 0.672-percentage-point increase. "
+        "This is a planning target, not a forecast or an observed result."
     )
 
-    st.subheader("Proposed guardrails")
+    st.subheader("How many participants and how long?")
+
+    col1, col2 = st.columns(2)
+    col1.metric("Total participants needed", "24,696")
+    col2.metric("Estimated recruitment", "About 45 days")
 
     st.write(
-        "- Bounce and engagement\n"
-        "- Page performance\n"
-        "- Refunds and returns, if available"
+        "We need **12,348 users in each group**. At the notebook's "
+        "planning estimate of **553.6 eligible users per day**, "
+        "recruitment would take about **44.6 days, or 6.4 weeks**."
     )
+
+    st.write(
+        "Smaller improvements need more participants to distinguish "
+        "them from random variation. The notebook compared several "
+        "targets before selecting 20% as a practical planning compromise."
+    )
+
+    with st.expander("See the sample-size trade-off"):
+        scenarios = pd.DataFrame({
+            "Relative improvement": ["10%", "15%", "20%", "25%"],
+            "Target conversion": [
+                "3.696%", "3.864%", "4.032%", "4.200%"
+            ],
+            "Users per group": [47299, 21490, 12348, 8068],
+            "Total users": [94598, 42980, 24696, 16136],
+            "Recruitment days": [170.9, 77.6, 44.6, 29.1],
+        })
+
+        st.dataframe(scenarios, hide_index=True)
+
+        st.caption(
+            "These are alternative planning scenarios, not four "
+            "separate experiments or predicted outcomes."
+        )
+
+    st.subheader("What else should we monitor?")
+
+    st.write(
+        "A higher purchase rate would not be enough if the change "
+        "creates other problems. Proposed guardrails are:\n"
+        "- **Bounce and engagement:** Are visitors leaving more quickly "
+        "or engaging less?\n"
+        "- **Page performance:** Does the revised page load more slowly?\n"
+        "- **Refunds and returns:** Do these increase, if the data "
+        "is available?"
+    )
+
+    st.subheader("How would we make a decision?")
+
+    st.write(
+        "After reaching the planned sample and allowing the purchase "
+        "measurement window to finish, we would compare conversion "
+        "rates, the uncertainty around the difference, and the "
+        "guardrails. A rollout decision would consider both the "
+        "strength of the evidence and the business value of the change."
+    )
+
+    with st.expander("Technical design and definitions"):
+        design = pd.DataFrame({
+            "Parameter": [
+                "Eligible population",
+                "Randomization unit",
+                "Allocation",
+                "Primary metric",
+                "Baseline conversion",
+                "Minimum detectable effect",
+                "Corresponding treatment conversion",
+                "Absolute effect",
+                "Significance level",
+                "Statistical power",
+                "Test direction",
+                "Required users per group",
+                "Required users total",
+                "Estimated recruitment duration",
+            ],
+            "Value": [
+                "First-time visitors who view a product",
+                "User",
+                "50/50",
+                "User-level purchase conversion",
+                "3.36%",
+                "20% relative lift",
+                "4.032%",
+                "+0.672 percentage points",
+                "5%",
+                "80%",
+                "Two-sided",
+                "12,348",
+                "24,696",
+                "44.6 days, approximately 6.4 weeks",
+            ],
+        })
+
+        st.dataframe(design, hide_index=True)
+
+        st.write(
+            "**Minimum detectable effect (MDE):** The improvement "
+            "used to plan the sample size. Smaller effects may exist "
+            "even if this test cannot reliably detect them."
+        )
+
+        st.write(
+            "**80% power:** If the true improvement equals the planned "
+            "MDE and the assumptions hold, the test has about an 80% "
+            "chance of detecting it."
+        )
+
+        st.write(
+            "**5% significance level:** Under the test assumptions, "
+            "when there is truly no effect, this procedure has a 5% "
+            "false-positive rate."
+        )
+
+        st.write(
+            "**Two-sided test:** The analysis allows for either an "
+            "increase or a decrease in conversion."
+        )
+
+        st.caption(
+            "Sample sizes were calculated with statsmodels "
+            "NormalIndPower and proportion_effectsize, with equal "
+            "allocation between groups."
+        )
+
+    with st.expander("Planning assumptions to confirm before launch"):
+        st.write(
+            "- Confirm the source and eligibility definitions behind "
+            "the 3.36% baseline and 553.6 daily-user estimate.\n"
+            "- Specify how long each assigned user has to purchase "
+            "and align the baseline with that measurement window.\n"
+            "- Define acceptable guardrail changes before the test.\n"
+            "- Allow for outcome follow-up after recruitment; "
+            "45 days is a recruitment estimate, not necessarily "
+            "the total time until a final decision."
+        )
 
     st.caption(
         "This design uses a user-level metric. The Product Analytics "
