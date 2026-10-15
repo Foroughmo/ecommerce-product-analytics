@@ -6,213 +6,160 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="Test clearer information before purchase",
+        title="Can clearer information help shoppers buy?",
         subtitle=(
-            "Would shipping estimates and visible return information "
-            "help first-time product viewers become customers?"
+            "Test shipping estimates and return information "
+            "near Add to Cart."
         ),
         eyebrow="Experiment design · Proposed, not yet run",
     )
 
-    takeaway(
-        "Decision to inform: whether to introduce a revised product "
-        "page. The experiment below is a plan; no results have "
-        "been observed for this change."
+    st.write(
+        "Only about 18–19 in 100 product-view sessions reach the cart. "
+        "Could clearer shipping and return information help? "
+        "This experiment would test that idea."
     )
 
-    context_col, opportunity_col = st.columns([3, 2])
+    st.subheader("🔀 Two experiences to compare")
 
-    with context_col:
-        st.subheader("Why this test?")
-        st.write(
-            "The GA4 funnel shows its largest drop-off between viewing "
-            "a product and adding it to the cart. Across devices, "
-            "only about 18–19 in 100 product-view sessions reach "
-            "Add to Cart."
-        )
-        st.write(
-            "Uncertainty about shipping or returns could contribute. "
-            "The funnel cannot establish that explanation, so we "
-            "propose testing it."
-        )
+    control_col, treatment_col = st.columns(2)
 
-    with opportunity_col:
+    with control_col:
         insight_card(
-            "Hypothesis",
-            "Clearer information may reduce uncertainty",
-            "Providing shipping estimates, return-policy visibility, "
-            "and reassurance near Add to Cart will increase purchase "
-            "conversion among first-time product viewers.",
+            "A · Control",
+            "Current product page",
+            "Keep the existing experience.",
+            height=220,
         )
 
-    experience_tab, planning_tab, decision_tab = st.tabs(
-        ["A/B experience", "Sample & timing", "Decision & safeguards"]
+    with treatment_col:
+        insight_card(
+            "B · Treatment",
+            "Clearer purchase information",
+            "Show shipping estimates, return information, and "
+            "purchase reassurance near Add to Cart.",
+            height=220,
+        )
+
+    st.write(
+        "**Who:** First-time visitors, when they view a product.  \n"
+        "**Assignment:** Randomly split users 50/50, keeping each "
+        "person on the same version.  \n"
+        "**Success measure:** The percentage of assigned users "
+        "who purchase."
     )
 
-    with experience_tab:
-        st.subheader("One change, two experiences")
+    st.subheader("📏 How large would the test be?")
 
-        control_col, treatment_col = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
-        with control_col:
-            insight_card(
-                "A · Control",
-                "Existing product page",
-                "Eligible visitors see the current product page. "
-                "This provides the comparison for evaluating "
-                "the revised experience.",
-            )
+    col1.metric("Participants needed", "24,696")
+    col2.metric("Improvement to detect", "20% relative")
+    col3.metric("Estimated recruitment", "≈45 days")
 
-        with treatment_col:
-            insight_card(
-                "B · Treatment",
-                "More visible purchase information",
-                "Eligible visitors see clearer shipping estimates, "
-                "return information, and purchase reassurance "
-                "near Add to Cart.",
-            )
+    takeaway(
+        "The test is planned to detect an increase from 3.36% "
+        "to 4.032% purchase conversion—about 7 additional "
+        "purchasers per 1,000 eligible users."
+    )
 
-        col1, col2, col3 = st.columns(3)
+    st.write(
+        "These are planning estimates, not predicted results. "
+        "The baseline, eligible traffic, and purchase measurement "
+        "window still need confirmation."
+    )
 
-        with col1:
-            insight_card(
-                "Who participates?",
-                "First-time product viewers",
-                "First-time visitors become eligible when they "
-                "view a product.",
-            )
-
-        with col2:
-            insight_card(
-                "How are groups assigned?",
-                "50/50 random assignment",
-                "Assignment is at the user level. Each participant "
-                "should continue seeing the same assigned version.",
-            )
-
-        with col3:
-            insight_card(
-                "What do we measure?",
-                "Purchase conversion",
-                "Compare the percentage of eligible assigned "
-                "users who purchase in each group.",
-            )
-
-        st.caption(
-            "This experiment targets first-time product viewers. "
-            "The device funnel describes a broader session population."
+    with st.expander("Why test this change?"):
+        st.write(
+            "The GA4 funnel shows its largest drop-off between "
+            "viewing a product and adding it to the cart. "
+            "Uncertainty about shipping or returns could contribute, "
+            "but the funnel cannot establish the cause."
         )
 
-    with planning_tab:
-        st.subheader("What improvement are we planning to detect?")
-
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Planning baseline", "3.36%")
-        col2.metric("Detectable target", "4.032%")
-        col3.metric("Absolute improvement", "+0.672 pp")
-
-        takeaway(
-            "Per 1,000 eligible users, the target corresponds to "
-            "about 34 purchasers increasing to 40—approximately "
-            "7 additional purchasers. This is a planning scenario, "
-            "not a forecast."
+        st.write(
+            "**Hypothesis:** Clearer shipping estimates, visible "
+            "return information, and reassurance near Add to Cart "
+            "will increase purchase conversion among first-time "
+            "product viewers."
         )
 
-        st.caption(
-            "pp means percentage points. A 20% relative increase "
-            "on a 3.36% baseline equals +0.672 percentage points."
+        st.write(
+            "This experiment targets a narrower population than "
+            "the device funnel, which describes shopping sessions "
+            "across a broader group of visitors."
         )
 
-        st.subheader("Participants and recruitment time")
+    with st.expander("Sample size, timing, and alternative scenarios"):
+        st.markdown("#### Selected plan")
 
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Total participants", "24,696")
-        col2.metric("Users per group", "12,348")
-        col3.metric("Recruitment estimate", "44.6 days")
+        st.write(
+            "**12,348 users per group**, or **24,696 total**. "
+            "A 20% relative improvement on the 3.36% baseline "
+            "equals **+0.672 percentage points**, giving a target "
+            "conversion rate of **4.032%**."
+        )
 
         st.write(
             "The notebook assumes **553.6 eligible users per day**. "
-            "At that rate, recruitment takes approximately "
-            "**45 days, or 6.4 weeks**. The final decision may take "
-            "longer because participants need time to complete "
+            "Recruitment would take **44.6 days**, approximately "
+            "**45 days or 6.4 weeks**. The final decision would "
+            "also require time for participants to complete "
             "the purchase measurement window."
         )
 
-        with st.expander("Why choose a 20% relative improvement?"):
-            st.write(
-                "Smaller improvements require more participants "
-                "to distinguish them from random variation. "
-                "The notebook compared these planning scenarios "
-                "and selected 20% as a compromise between "
-                "sensitivity and recruitment time."
-            )
+        st.markdown("#### Why plan for a 20% improvement?")
 
-            scenarios = pd.DataFrame({
-                "Relative improvement": ["10%", "15%", "20%", "25%"],
-                "Target conversion": [
-                    "3.696%", "3.864%", "4.032%", "4.200%"
-                ],
-                "Users per group": [47299, 21490, 12348, 8068],
-                "Total users": [94598, 42980, 24696, 16136],
-                "Recruitment days": [170.9, 77.6, 44.6, 29.1],
-            })
-            st.dataframe(scenarios, hide_index=True)
+        st.write(
+            "Smaller improvements require more participants. "
+            "The notebook selected 20% as a compromise between "
+            "sensitivity and recruitment time."
+        )
 
-            st.caption(
-                "These are alternative planning scenarios, not "
-                "four experiments or predicted outcomes. "
-                "Business value is still needed to establish "
-                "which improvement is commercially worthwhile."
-            )
+        scenarios = pd.DataFrame({
+            "Relative improvement": ["10%", "15%", "20%", "25%"],
+            "Target conversion": [
+                "3.696%", "3.864%", "4.032%", "4.200%"
+            ],
+            "Users per group": [47299, 21490, 12348, 8068],
+            "Total users": [94598, 42980, 24696, 16136],
+            "Recruitment days": [170.9, 77.6, 44.6, 29.1],
+        })
 
-    with decision_tab:
-        st.subheader("How would we decide whether to launch?")
+        st.dataframe(scenarios, hide_index=True)
 
+        st.write(
+            "These are alternative planning scenarios, not four "
+            "experiments or forecasts. Business value is still "
+            "needed to determine what improvement is worthwhile."
+        )
+
+    with st.expander("How would we decide whether to launch?"):
         st.write(
             "After reaching the planned sample and completing "
-            "outcome follow-up, compare purchase conversion "
-            "between groups and quantify uncertainty around "
+            "purchase follow-up, compare conversion between "
+            "groups and estimate a confidence interval for "
             "the difference."
         )
+
+        st.markdown(
+            "- **Business value:** Does the improvement justify "
+            "the cost of the change?\n"
+            "- **Engagement:** Do bounce and engagement measures "
+            "suggest a worse experience?\n"
+            "- **Page performance:** Does the revised page "
+            "become slower?\n"
+            "- **Purchase quality:** Do refunds or returns "
+            "increase, if those data are available?"
+        )
+
         st.write(
-            "Consider both the evidence of improvement and its "
-            "business value. Also check whether the revised "
-            "experience creates problems elsewhere."
+            "Launch only if the evidence and business value "
+            "support it and the agreed guardrails are met. "
+            "Statistical significance alone is not enough."
         )
 
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            insight_card(
-                "Guardrail · Engagement",
-                "Are visitors disengaging?",
-                "Monitor bounce and engagement for signs that "
-                "the change makes the experience less useful.",
-            )
-
-        with col2:
-            insight_card(
-                "Guardrail · Performance",
-                "Does the page become slower?",
-                "Check whether the revised experience worsens "
-                "page performance.",
-            )
-
-        with col3:
-            insight_card(
-                "Guardrail · Purchase quality",
-                "Do refunds or returns increase?",
-                "Monitor downstream refunds and returns "
-                "if those data are available.",
-            )
-
-        takeaway(
-            "Statistical significance alone is not a launch "
-            "decision. The improvement must also justify its "
-            "costs and meet the agreed guardrail criteria."
-        )
-
-    with st.expander("Technical design and plain-English definitions"):
+    with st.expander("Technical design and definitions"):
         design = pd.DataFrame({
             "Parameter": [
                 "Eligible population",
@@ -249,47 +196,48 @@ def render():
                 "44.6 days, approximately 6.4 weeks",
             ],
         })
+
         st.dataframe(design, hide_index=True)
 
-        st.write(
-            "**Minimum detectable effect (MDE):** The improvement "
-            "used to plan the sample size. Smaller effects may "
-            "exist even if the test cannot reliably detect them."
-        )
-        st.write(
-            "**80% power:** If the true improvement equals the "
-            "planned MDE and the assumptions hold, the test has "
-            "about an 80% chance of detecting it."
-        )
-        st.write(
-            "**5% significance level:** When there is truly no "
-            "effect, the test procedure has a 5% false-positive "
-            "rate under its assumptions."
-        )
-        st.write(
-            "**Two-sided test:** The analysis allows for either "
-            "an increase or a decrease in conversion."
-        )
-        st.caption(
-            "Sample sizes were calculated with statsmodels "
-            "NormalIndPower and proportion_effectsize, using "
-            "equal group allocation and rounding up."
+        st.markdown(
+            "- **Percentage points:** The difference between "
+            "two percentages. Moving from 3.36% to 4.032% is "
+            "+0.672 percentage points, or a 20% relative increase.\n"
+            "- **Minimum detectable effect (MDE):** The improvement "
+            "used to plan sample size. Smaller effects may exist "
+            "even if the test cannot reliably detect them.\n"
+            "- **80% power:** If the true improvement equals the "
+            "planned MDE and assumptions hold, the test has about "
+            "an 80% chance of detecting it.\n"
+            "- **5% significance level:** When there is no effect, "
+            "the test procedure has a 5% false-positive rate "
+            "under its assumptions.\n"
+            "- **Two-sided test:** Allows for either an increase "
+            "or a decrease in conversion."
         )
 
-    with st.expander("Planning details to confirm before launch"):
         st.write(
+            "Sample sizes were calculated with statsmodels "
+            "`NormalIndPower` and `proportion_effectsize`, "
+            "using equal group allocation and rounding up."
+        )
+
+        st.write(
+            "**Metric distinction:** This test measures user-level "
+            "purchase conversion. Product Analytics reports "
+            "ordered, same-session funnel completion. "
+            "The separate Criteo advertising analysis does not "
+            "evaluate this proposed change."
+        )
+
+    with st.expander("What needs confirmation before launch?"):
+        st.markdown(
             "- Confirm the source and eligibility definitions "
             "behind the 3.36% baseline and daily traffic estimate.\n"
             "- Define how long each assigned user has to purchase "
             "and align the baseline with that window.\n"
-            "- Define acceptable guardrail changes before the test.\n"
-            "- Account for outcome follow-up after recruitment; "
-            "45 days is not necessarily the full decision timeline."
+            "- Define acceptable guardrail changes before testing.\n"
+            "- Include purchase follow-up in the timeline; "
+            "45 days covers recruitment, not necessarily "
+            "the full time to a decision."
         )
-
-    st.caption(
-        "This design uses a user-level metric. Product Analytics "
-        "separately reports ordered, same-session funnel completion. "
-        "The Criteo advertising analysis does not evaluate this "
-        "proposed product-page change."
-    )
