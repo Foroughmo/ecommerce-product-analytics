@@ -79,7 +79,6 @@ def render():
         "The store data helps identify a product opportunity; "
         "the advertising data provides a separate experiment "
         "to analyze."
-        height=300,
     )
 
     st.subheader("What stood out")
