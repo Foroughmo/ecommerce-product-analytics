@@ -416,3 +416,19 @@ st.caption(
     "GA4 and Criteo are separate datasets. "
     "The Criteo experiment does not test changes to the GA4 store."
 )
+
+if section in ["Overview", "Experiment Results", "Uplift Modeling"]:
+    st.info(
+        "Dataset limitation: Criteo non-uniformly subsampled the public "
+        "dataset to conceal original advertising incrementality. "
+        "These results describe the public benchmark and should not "
+        "be interpreted as actual advertiser lift or production ROI."
+    )
+
+    st.caption(
+        "Overall results use the 1,000,000-row sample. "
+        "Uplift evaluation uses the 300,000-row test set; "
+        "the top decile contains 30,000 users. "
+        "A positive effect in that group alone does not prove that "
+        "targeting it outperforms other targeting policies."
+    )
