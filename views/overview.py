@@ -120,8 +120,8 @@ def render():
         st.markdown("#### Test clearer product-page information")
 
         st.write(
-            "Test whether clearer shipping and return information "
-            "near Add to Cart helps first-time product viewers "
+             "- Test whether clearer shipping and return information "
+             "near *Add to Cart* helps first-time product viewers "
             "complete a purchase."
         )
 
@@ -140,19 +140,18 @@ def render():
             insight_card(
                 "Planning estimate",
                 "24,696 participants",
-                "12,348 users per group. About 45 days to recruit, "
-                "plus time to measure purchases.",
+                "12,348 users per group. Estimated experiment duration: "
+                "about 45 days, plus purchase follow-up, ",
                 height=220,
             )
 
     with advertising_tab:
-        st.markdown("#### Assess profitability and targeting")
+        st.markdown("#### Compare advertising strategies")
 
         st.write(
-            "Compare the value of additional purchases with "
-            "advertising costs. Then evaluate whether targeting "
-            "the model's highest-ranked users performs better "
-            "than broader advertising."
+            "- Compare advertising costs and additional purchases "
+            "from targeting the model’s top-ranked 10% versus all "
+            "users. Determine which approach generates more profit."
         )
 
         takeaway(
