@@ -9,7 +9,6 @@ from shared.styling import insight_card, page_header, takeaway
 def render():
     page_header(
         title="Did advertising increase conversion?",
-        subtitle="Evaluating advertising incrementality using treatment and control groups.",
         eyebrow="Experiment results · Criteo",
     )
 
@@ -18,9 +17,6 @@ def render():
         "public uplift dataset, derived from randomized advertising experiments. "
         "The objective is to estimate the difference in conversion between users "
         "assigned to advertising treatment and users assigned to control."
-    )
-
-    st.caption(
         "This is a separate analysis from the proposed GA4 product-page experiment."
     )
 
@@ -102,7 +98,7 @@ def render():
             "p ≈ 7.24 × 10⁻¹⁴."
         )
 
-    st.subheader("Business interpretation")
+    st.subheader(" 🔎 Business interpretation")
 
     st.write(
         f"The estimated lift corresponds to approximately "
