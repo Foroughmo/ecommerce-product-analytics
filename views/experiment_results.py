@@ -9,6 +9,7 @@ from shared.styling import insight_card, page_header, takeaway
 def render():
     page_header(
         title="Did advertising increase conversion?",
+        subtitle="Evaluating advertising incrementality using treatment and control groups.",
         eyebrow="Experiment results · Criteo",
     )
 
