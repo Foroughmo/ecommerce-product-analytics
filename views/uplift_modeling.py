@@ -93,7 +93,7 @@ def render():
             "- **Preprocessing:** A separate StandardScaler in each logistic "
             "regression pipeline, fitted on training data only.\n"
             "- **Split:** 70% training / 30% test, jointly stratified by "
-            "treatment and conversion; random seed 42.\n"
+            "treatment and conversion.\n"
             "- **Model settings:** Logistic regression, max_iter = 1,000.\n"
             "- **Ranking:** Test users grouped into predicted-uplift deciles; "
             "the highest decile is evaluated here.\n"
@@ -102,12 +102,6 @@ def render():
             "- **Validation:** Model or cutoff changes informed by these "
             "results require fresh evaluation data."
         )
-
-    st.info(
-        "Scope: Results describe a selected group in Criteo's non-uniformly "
-        "subsampled public benchmark. Validate targeting performance and "
-        "economics in the intended production setting."
-    )
     st.markdown(
         "[Criteo dataset documentation]"
         "(https://huggingface.co/datasets/criteo/criteo-uplift)"
