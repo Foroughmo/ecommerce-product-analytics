@@ -57,7 +57,7 @@ def render():
         "purchasers per 1,000 eligible users."
     )
 
-        with st.expander("Sample size, duration, and planning assumptions"):
+    with st.expander("Sample size, duration, and planning assumptions"):
         st.markdown("#### Inputs from the SQL analysis")
 
         st.markdown(
