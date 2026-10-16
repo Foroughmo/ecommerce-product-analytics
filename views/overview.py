@@ -154,55 +154,70 @@ def render():
             "users. Determine which approach generates more profit."
         )
 
-    with st.expander("See the numbers and methodology"):
-        st.markdown("#### Store funnel")
+        with st.expander("See the numbers and methodology"):
+        st.markdown("#### Shopping journey")
 
-        st.write(
-            f"Product-view-to-cart rates: {min_cart_rate:.2f}%–"
-            f"{max_cart_rate:.2f}%. The funnel follows product view, "
-            "cart, checkout, and purchase in order within one session."
+        st.markdown(
+            f"- **Reach the cart:** {min_cart_rate:.1f}%–"
+            f"{max_cart_rate:.1f}% of product-view sessions.\n"
+            f"- **Complete the full journey:** "
+            f"{mobile_rate:.2f}% on mobile and "
+            f"{desktop_rate:.2f}% on desktop."
         )
 
         st.write(
-            f"Full-funnel completion: mobile {mobile_rate:.2f}%; "
-            f"desktop {desktop_rate:.2f}%."
+            "The full journey means viewing a product, adding to cart, "
+            "starting checkout, and purchasing—in order within one session."
         )
 
         st.markdown("#### Proposed product-page experiment")
 
-        st.write(
-            "**Design:** User-level random assignment, split 50/50.  \n"
-            "**Baseline:** 3.36% purchase conversion.  \n"
-            "**Detectable improvement:** 20% relative, "
-            "equivalent to 4.032% conversion.  \n"
-            "**Statistical assumptions:** 80% power; "
-            "5% significance level; two-sided test."
+        st.markdown(
+            "- **Comparison:** Randomly assign users equally to "
+            "the current or revised page.\n"
+            "- **Measure:** The percentage of assigned users who purchase.\n"
+            "- **Planning baseline:** 3.36% purchase conversion.\n"
+            "- **Improvement to detect:** From 3.36% to 4.03%—"
+            "a 20% relative increase.\n"
+            "- **Statistical settings:** 80% power, "
+            "5% significance level, two-sided test."
         )
 
-        st.markdown("#### Overall advertising result")
+        st.markdown("#### Advertising results: all users")
 
-        st.write(
-            f"**Control:** {overall['control_conversion_pct']:.4f}%  \n"
-            f"**Treatment:** "
-            f"{overall['treatment_conversion_pct']:.4f}%  \n"
-            f"**Lift:** {overall['lift_pp']:+.4f} percentage points  \n"
-            f"**95% confidence interval:** "
-            f"{overall['ci_lower_pp']:+.4f} to "
-            f"{overall['ci_upper_pp']:+.4f} percentage points"
+        st.markdown(
+            f"- **Control-group purchase rate:** "
+            f"{overall['control_conversion_pct']:.3f}%.\n"
+            f"- **Advertising-group purchase rate:** "
+            f"{overall['treatment_conversion_pct']:.3f}%.\n"
+            f"- **Estimated impact:** "
+            f"{overall['lift_pp'] * 100:+.0f} purchases "
+            "per 10,000 users.\n"
+            f"- **95% confidence interval:** "
+            f"{overall['ci_lower_pp'] * 100:+.0f} to "
+            f"{overall['ci_upper_pp'] * 100:+.0f} purchases "
+            "per 10,000 users."
         )
 
-        st.markdown("#### Highest-ranked 10%")
+        st.markdown("#### Advertising results: top-ranked 10%")
 
         st.write(
-            f"**Estimated lift:** "
-            f"{top['lift_pp']:+.4f} percentage points  \n"
-            f"**95% confidence interval:** "
-            f"{top['ci_lower_pp']:+.4f} to "
-            f"{top['ci_upper_pp']:+.4f} percentage points"
+            "Users ranked highest by their predicted response "
+            "to advertising:"
+        )
+
+        st.markdown(
+            f"- **Estimated impact:** "
+            f"{top['lift_pp'] * 100:+.0f} purchases "
+            "per 10,000 users.\n"
+            f"- **95% confidence interval:** "
+            f"{top['ci_lower_pp'] * 100:+.0f} to "
+            f"{top['ci_upper_pp'] * 100:+.0f} purchases "
+            "per 10,000 users."
         )
 
         st.caption(
-            "1 million records analyzed; 700,000 used for training "
-            "and 300,000 for testing. The top-ranked group contains "
+            "1 million records analyzed: 700,000 for model training "
+            "and 300,000 for testing. The top-ranked group includes "
             "30,000 test records."
         )
