@@ -101,11 +101,10 @@ def render():
         insight_card(
             "03 · Targeting opportunity",
             " 👤 Conversion lift differs across user segments",
-            "The model ranked users by how much advertising was "
-            "expected to increase their likelihood of purchasing. "
-            "In the highest-ranked 10%, advertising produced an "
-            "estimated 82 additional purchases per 10,000 users, "
-            "compared with 11 per 10,000 overall.",
+            "The model ranked users by their predicted response "
+            "to advertising. The top 10% showed an estimated "
+            "82 additional purchases per 10,000 users, "
+            "compared with 11 overall. ",
         )
 
     st.subheader("What's next?")
