@@ -9,10 +9,14 @@ from shared.styling import page_header, takeaway
 def render():
     page_header(
         title="Where do shoppers drop off?",
-        "subtitle="Follow the journey from product view to purchase."
-        "This analysis follows shopping sessions from product view to purchase to identify where fewer sessions reach the next step."
-        "A session is a visit to the store; one person can visit more than once.",
+        subtitle="Follow the shopping journey from product view to purchase.",
         eyebrow="Product analytics · GA4",
+    )
+
+    st.write(
+        "Explore how many shopping sessions reach each step. "
+        "A session is a visit to the store; one person can visit "
+        "more than once."
     )
 
     funnel = load_funnel()
