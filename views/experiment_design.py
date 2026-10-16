@@ -87,6 +87,14 @@ def render():
         )
 
     with st.expander("Sample size, timing, and alternative scenarios"):
+        st.markdown("#### What the planning estimates are based on")
+
+        st.write(
+            "- **Baseline purchase rate:** 1,713 of 50,940 eligible "
+            "new users purchased—3.36%.\n"
+            "- **Daily eligible traffic:** An average of 553.6 users "
+            "per day across 92 days."
+        )
         st.markdown("#### Selected plan")
 
         st.write(
