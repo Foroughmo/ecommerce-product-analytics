@@ -12,7 +12,7 @@ def render():
         eyebrow="Uplift modeling · Criteo",
     )
 
-    st.subheader("Why model uplift?")
+    st.subheader(" 🔗 Why model uplift?")
     st.write(
         "The experiment results summarize the average response across all users. "
         "For targeting, the next question is whether we can identify users whose "
@@ -21,7 +21,7 @@ def render():
         "conversion probability alone."
     )
 
-    st.subheader("How was the segment selected?")
+    st.subheader(" 🔍 How was the segment selected?")
     st.markdown(
         "1. **Train:** Fit a T-learner on 700,000 users using two logistic "
         "regressions: one for treatment users and one for control users.\n"
@@ -45,7 +45,7 @@ def render():
     lower = float(top["ci_lower_pp"])
     upper = float(top["ci_upper_pp"])
 
-    st.subheader("What did we observe in the top 10%?")
+    st.subheader(" 💡 What did we observe in the top 10%?")
     st.dataframe(
         pd.DataFrame({
             "Assignment": ["Control", "Treatment"],
