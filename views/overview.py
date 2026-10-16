@@ -154,11 +154,6 @@ def render():
             "users. Determine which approach generates more profit."
         )
 
-        takeaway(
-            "Confirm profitability and targeting performance "
-            "on new data before deployment."
-        )
-
     with st.expander("See the numbers and methodology"):
         st.markdown("#### Store funnel")
 
@@ -182,11 +177,6 @@ def render():
             "equivalent to 4.032% conversion.  \n"
             "**Statistical assumptions:** 80% power; "
             "5% significance level; two-sided test."
-        )
-
-        st.caption(
-            "Confirm the baseline, eligible traffic, and purchase "
-            "measurement window before running the test."
         )
 
         st.markdown("#### Overall advertising result")
@@ -215,17 +205,4 @@ def render():
             "1 million records analyzed; 700,000 used for training "
             "and 300,000 for testing. The top-ranked group contains "
             "30,000 test records."
-        )
-
-        st.caption(
-            "Criteo modified the public sample to conceal the original "
-            "advertising effect. Results apply to this benchmark."
-        )
-
-    with st.expander("Explore the report"):
-        st.markdown(
-            "- **Product Analytics:** Shopping journey and device comparisons.\n"
-            "- **Experiment Design:** Proposed product-page test.\n"
-            "- **Experiment Results:** Advertising impact on purchases.\n"
-            "- **Uplift Modeling:** Differences in predicted advertising response."
         )
