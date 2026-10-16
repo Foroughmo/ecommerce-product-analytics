@@ -1,154 +1,100 @@
-import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
 from shared.data import load_experiment_results
-from shared.styling import insight_card, page_header, takeaway
+from shared.styling import page_header, takeaway
 
 
 def render():
     page_header(
         title="Did advertising increase conversion?",
-        subtitle="Evaluating advertising incrementality using treatment and control groups.",
+        subtitle="Overall treatment effect in the Criteo advertising benchmark.",
         eyebrow="Experiment results · Criteo",
     )
 
+    st.subheader("What was tested?")
     st.write(
-        "This analysis uses a sample of 1 million users from Criteo’s "
-        "public uplift dataset, derived from randomized advertising experiments. "
-        "The objective is to estimate the difference in conversion between users "
-        "assigned to advertising treatment and users assigned to control."
-        "This is a separate analysis from the proposed GA4 product-page experiment."
+        "Criteo's dataset comes from randomized advertising experiments: "
+        "the treatment group was eligible for advertising targeting, while "
+        "the control group was withheld from targeting. This analysis compares "
+        "conversion rates across a sample of 1 million users to estimate the "
+        "incremental response to treatment assignment."
     )
-
-    st.subheader("Experiment setup")
-
-    st.markdown(
-        "- **Treatment:** Users eligible for advertising targeting.\n"
-        "- **Control:** Users withheld from advertising targeting.\n"
-        "- **Primary metric:** User conversion rate "
-        "(converted users ÷ assigned users).\n"
-        "- **Hypothesis:** Treatment assignment increases conversion."
+    st.caption(
+        "This advertising analysis is separate from the proposed GA4 "
+        "product-page experiment. Conversion rate = converted users / assigned users."
     )
 
     results = load_experiment_results()
     overall = results.loc[results["segment"] == "Overall"].iloc[0]
-
     control_rate = float(overall["control_conversion_pct"])
     treatment_rate = float(overall["treatment_conversion_pct"])
     lift = float(overall["lift_pp"])
     lower = float(overall["ci_lower_pp"])
     upper = float(overall["ci_upper_pp"])
+    relative_lift = lift / control_rate * 100 if control_rate else None
 
-    # Convert percentage-point differences to conversions per 100,000 users.
-    extra_per_100k = lift * 1_000
-    lower_per_100k = lower * 1_000
-    upper_per_100k = upper * 1_000
-
-    st.subheader("Results")
-
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Control conversion", f"{control_rate:.3f}%")
-    col2.metric("Treatment conversion", f"{treatment_rate:.3f}%")
-    col3.metric("Absolute lift", f"{lift:+.3f} pp")
-
-    st.caption(
-        "Absolute lift = treatment conversion − control conversion. "
-        "pp = percentage points."
-    )
-
-    chart_col, inference_col = st.columns([3, 2])
-
-    with chart_col:
-        fig, ax = plt.subplots(figsize=(7, 3.8))
-        fig.patch.set_facecolor("#FFFFFF")
-        ax.set_facecolor("#FFFFFF")
-
-        bars = ax.bar(
-            ["Control", "Treatment"],
-            [control_rate, treatment_rate],
-            color=["#94A3B8", "#087F8C"],
-            width=0.5,
-        )
-        ax.bar_label(
-            bars,
-            labels=[
-                f"{control_rate:.3f}%",
-                f"{treatment_rate:.3f}%",
-            ],
-            padding=7,
-        )
-        ax.set_ylim(0, max(control_rate, treatment_rate) * 1.3)
-        ax.set_ylabel("Conversion rate (%)")
-        ax.spines[["top", "right"]].set_visible(False)
-        fig.tight_layout()
-
-        st.pyplot(fig)
-        plt.close(fig)
-
-    with inference_col:
-        insight_card(
-            "95% confidence interval",
-            f"{lower:+.3f} to {upper:+.3f} pp",
-            "The interval excludes zero, indicating a statistically "
-            "significant positive difference in the benchmark sample.",
-        )
-
-        st.caption(
-            "Two-sided two-proportion z-test: "
-            "p ≈ 7.24 × 10⁻¹⁴."
-        )
-
-    st.subheader(" 🔎 Business interpretation")
-
-    st.write(
-        f"The estimated lift corresponds to approximately "
-        f"**{extra_per_100k:.0f} additional conversions per 100,000 users** "
-        f"assigned to treatment "
-        f"(95% CI: {lower_per_100k:.0f}–{upper_per_100k:.0f}). "
-        "This illustrates the scale of the benchmark estimate; "
-        "it is not a production forecast."
-    )
-
-    takeaway(
-        "Recommendation: validate the effect in a production experiment "
-        "before scaling. A rollout decision also requires advertising costs, "
-        "conversion value, and guardrail metrics to assess profitability."
-    )
-
-    with st.expander("Methodology and sample"):
-        st.markdown(
-            "- **Estimand:** Intention-to-treat difference in conversion rates; "
-            "users remain in their assigned groups regardless of ad exposure.\n"
-            "- **Hypothesis test:** Two-sided two-proportion z-test, α = 0.05.\n"
-            "- **Confidence interval:** Normal approximation with an "
-            "unpooled standard error."
-        )
-
-        counts = pd.DataFrame({
-            "Group": ["Control", "Treatment"],
+    st.subheader("What did we find?")
+    st.dataframe(
+        pd.DataFrame({
+            "Assignment": ["Control", "Treatment"],
             "Users": [149_825, 850_175],
             "Conversions": [281, 2_540],
             "Conversion rate": [
-                f"{control_rate:.3f}%",
-                f"{treatment_rate:.3f}%",
+                f"{control_rate:.4f}%",
+                f"{treatment_rate:.4f}%",
             ],
-        })
-        st.dataframe(counts, hide_index=True)
+        }),
+        hide_index=True,
+    )
 
-        st.caption(
-            "Unequal group sizes are accounted for through each group's "
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Absolute lift", f"{lift:+.4f} pp")
+    col2.metric("95% confidence interval", f"{lower:+.4f} to {upper:+.4f} pp")
+    col3.metric("Relative lift", f"{relative_lift:+.1f}%" if relative_lift is not None else "N/A")
+    st.caption(
+        "Absolute lift = treatment rate − control rate; pp = percentage points. "
+        "Relative lift expresses that difference as a percentage of the control rate."
+    )
+
+    st.write(
+        "**Treatment conversion exceeded control in this benchmark sample.** "
+        "The confidence interval excludes zero "
+        "(two-sided two-proportion z-test: p ≈ 7.24 × 10⁻¹⁴). "
+        f"The estimated difference is equivalent to approximately {lift * 1_000:.0f} "
+        "additional conversions per 100,000 users assigned to treatment."
+    )
+
+    st.subheader("What is the decision?")
+    takeaway(
+        "The benchmark shows a positive overall response. Validate the effect "
+        "in a production experiment and assess advertising cost, conversion "
+        "value, and guardrails before recommending rollout."
+    )
+    st.write(
+        "**Next question:** Can uplift modeling identify a segment "
+        "with a larger incremental response to advertising?"
+    )
+
+    with st.expander("Statistical methodology"):
+        st.markdown(
+            "- **Estimand:** Intention-to-treat difference in user conversion rates; "
+            "users are compared by assignment, regardless of actual ad exposure.\n"
+            "- **Null hypothesis:** Treatment and control conversion rates are equal.\n"
+            "- **Test:** Two-sided two-proportion z-test, α = 0.05.\n"
+            "- **95% confidence interval:** Normal approximation using the "
+            "unpooled standard error.\n"
+            "- **Group sizes:** The comparison accounts for each group's "
             "conversion rate and sample size."
         )
 
     st.info(
-        "Dataset limitation: Criteo non-uniformly subsampled the public data "
-        "to conceal the original advertising incrementality. Estimates and "
-        "statistical inference describe the released benchmark under the "
-        "analysis assumptions, rather than the original advertiser population."
+        "Scope: Criteo non-uniformly subsampled the public data to conceal "
+        "the original incrementality. These estimates describe the released "
+        "benchmark under the analysis assumptions; they are not estimates "
+        "of original advertiser lift or a production forecast."
     )
-
     st.markdown(
-        "[Source: Criteo uplift dataset documentation]"
+        "[Criteo dataset documentation]"
         "(https://huggingface.co/datasets/criteo/criteo-uplift)"
     )
