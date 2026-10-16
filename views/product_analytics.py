@@ -38,12 +38,10 @@ def render():
         "Sessions with a product view",
         f"{int(row['view_sessions']):,}",
     )
-
     col2.metric(
         "Sessions completing the journey",
         f"{int(row['purchase_sessions']):,}",
     )
-
     col3.metric(
         "Journey completion rate",
         f"{row['overall_conversion_rate']:.2f}%",
@@ -95,19 +93,16 @@ def render():
     plt.close(fig)
 
     takeaway(
-        f"Of every 100 {device} sessions with a product view, "
-        f"about {cart_rate:.0f} reach the cart and "
-        f"{row['overall_conversion_rate']:.1f} complete "
-        "all four steps."
+        f"About {cart_rate:.0f}% of {device} product-view sessions "
+        f"reach the cart, and {row['overall_conversion_rate']:.1f}% "
+        "complete the full purchase journey."
     )
 
     st.subheader("💡 What could we test?")
 
     st.write(
-        "Test clearer shipping estimates and return information "
-        "near Add to Cart. The funnel identifies an opportunity; "
-        "an experiment would tell us whether this change "
-        "helps more shoppers purchase."
+        "Test whether clearer shipping and return information "
+        "near *Add to Cart* increases purchases."
     )
 
     with st.expander("Compare devices"):
@@ -130,7 +125,7 @@ def render():
             padding=6,
         )
         ax.set_ylim(0, max(device_rates) * 1.25)
-        ax.set_ylabel("Full-funnel completion (%)")
+        ax.set_ylabel("Journey completion (%)")
         ax.spines[["top", "right"]].set_visible(False)
         fig.tight_layout()
 
@@ -149,26 +144,10 @@ def render():
 
         st.write(
             f"Mobile: **{mobile_rate:.2f}%** · "
-            f"Desktop: **{desktop_rate:.2f}%**. "
-            "These differences do not establish a device effect."
+            f"Desktop: **{desktop_rate:.2f}%**."
         )
 
     with st.expander("See the numbers"):
-        col1, col2, col3 = st.columns(3)
-
-        col1.metric(
-            "Product-view sessions",
-            f"{int(row['view_sessions']):,}",
-        )
-        col2.metric(
-            "Full-funnel purchases",
-            f"{int(row['purchase_sessions']):,}",
-        )
-        col3.metric(
-            "Full-funnel completion",
-            f"{row['overall_conversion_rate']:.2f}%",
-        )
-
         rates = pd.DataFrame({
             "Transition": [
                 "Product view → Add to cart",
@@ -206,7 +185,8 @@ def render():
 
         st.write(
             "Shoppers may purchase later or follow a different path. "
-            "The funnel does not establish why they stop progressing."
+            "The funnel does not establish why they stop progressing "
+            "or whether device differences cause conversion differences."
         )
 
         st.write(
