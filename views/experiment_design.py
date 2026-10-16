@@ -6,8 +6,8 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="Can clearer information help shoppers buy?",
-        subtitle="Test shipping estimates and return information near Add to Cart.",
+        title="Can better product-page information increase sales?",
+        subtitle="Compare two product pages for first-time visitors.",
         eyebrow="Experiment design · Proposed, not yet run",
     )
 
@@ -22,27 +22,23 @@ def render():
 
     with control_col:
         insight_card(
-            "A · Control",
-            "Current product page",
+            "A · Control — Current page",
             "Keep the existing experience.",
-            height=220,
+            height=150,
         )
 
     with treatment_col:
         insight_card(
-            "B · Treatment",
-            "Clearer purchase information",
-            "Show shipping estimates, return information, and "
-            "purchase reassurance near Add to Cart.",
-            height=220,
+            "B · Treatment — Revised page",
+            "Make shipping estimates and return information more visible"
+            "near Add to Cart. ",
+            height=150,
         )
 
     st.write(
-        "**Who:** First-time visitors, when they view a product.  \n"
-        "**Assignment:** Randomly split users 50/50, keeping each "
-        "person on the same version.  \n"
-        "**Success measure:** The percentage of assigned users "
-        "who purchase."
+        "**Participants:** : First-time visitors who view a product.  \n"
+        "**Assignment:** Random 50/50 split; each user keeps the same version."
+        "**Primary metric** Percentage of assigned users who purchase. "
     )
 
     st.subheader("📏 How large would the test be?")
