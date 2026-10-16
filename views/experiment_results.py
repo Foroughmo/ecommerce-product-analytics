@@ -12,7 +12,7 @@ def render():
         eyebrow="Experiment results · Criteo",
     )
 
-    st.subheader("What was tested?")
+    st.subheader(" ⚒️ What was tested?")
     st.write(
         "Criteo's dataset comes from randomized advertising experiments: "
         "the treatment group was eligible for advertising targeting, while "
@@ -34,7 +34,7 @@ def render():
     upper = float(overall["ci_upper_pp"])
     relative_lift = lift / control_rate * 100 if control_rate else None
 
-    st.subheader("What did we find?")
+    st.subheader(" 🔎 What did we find?")
     st.dataframe(
         pd.DataFrame({
             "Assignment": ["Control", "Treatment"],
@@ -65,7 +65,7 @@ def render():
         "additional conversions per 100,000 users assigned to treatment."
     )
 
-    st.subheader("What is the decision?")
+    st.subheader(" 💡 What is the decision?")
     takeaway(
         "The benchmark shows a positive overall response. Validate the effect "
         "in a production experiment and assess advertising cost, conversion "
