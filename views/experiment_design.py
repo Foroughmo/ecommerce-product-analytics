@@ -67,43 +67,50 @@ def render():
 
         st.write(
             "**Hypothesis:** Clearer shipping estimates, visible "
-            "return information, and reassurance near **Add to Cart** "
+            "return information, and reassurance near *Add to Cart* "
             "will increase purchase conversion among first-time "
             "product viewers."
         )
 
     with st.expander("Sample size, timing, and alternative scenarios"):
-        st.markdown("#### What the planning estimates are based on")
+        st.markdown("#### Planning Inputs")
 
-        st.write(
-            "- **Baseline purchase rate:** 1,713 of 50,940 eligible "
-            "new users purchased—3.36%.\n"
-            "- **Daily eligible traffic:** An average of 553.6 users "
-            "per day across 92 days."
-        )
-        st.markdown("#### Selected plan")
-
-        st.write(
-            "**12,348 users per group**, or **24,696 total**. "
-            "A 20% relative improvement on the 3.36% baseline "
-            "equals **+0.672 percentage points**, giving a target "
-            "conversion rate of **4.032%**."
+        st.markdown(
+            "- **Source:** GA4 store data analyzed in BigQuery.\n"
+            "- **Eligible users:** The eligibility query identified "
+            "50,940 first-time visitors who viewed a product.\n"
+            "- **Baseline purchase conversion:** 1,713 of those users "
+            "purchased. Calculated as 1,713 ÷ 50,940 × 100 = **3.36%**.\n"
+            "- **Average daily eligible users:** The daily traffic "
+            "query measured **553.6 users per day** across 92 days."
         )
 
-        st.write(
-            "The notebook assumes **553.6 eligible users per day**. "
-            "Recruitment would take **44.6 days**, approximately "
-            "**45 days or 6.4 weeks**. The final decision would "
-            "also require time for participants to complete "
-            "the purchase measurement window."
+        st.markdown("#### Selected Experiment Design")
+
+        st.markdown(
+            "- **Minimum detectable lift:** A **20% relative increase**, "
+            "selected for planning. This raises conversion from "
+            "3.36% to **4.032%**: 3.36% × 1.20.\n"
+            "- **Sample size:** **24,696 users—12,348 per group**, "
+            "calculated in Python using the baseline, detectable lift, "
+            "80% power, a 5% significance level, and a two-sided test.\n"
+            "- **Estimated experiment duration:** "
+            "24,696 ÷ 553.6 = **44.6 days**, rounded to **45 days** "
+            "to reach the sample size, plus purchase follow-up."
         )
 
-        st.markdown("#### Why plan for a 20% improvement?")
+        st.markdown("#### Why a 20% Minimum Detectable Lift?")
 
         st.write(
-            "Smaller improvements require more participants. "
-            "The notebook selected 20% as a compromise between "
-            "sensitivity and recruitment time."
+            "The notebook compared detectable lifts of 10%, 15%, "
+            "20%, and 25%. The 20% option balances the size of "
+            "improvement we can detect with the estimated "
+            "experiment duration."
+        )
+
+        st.write(
+            "The table below shows how smaller detectable "
+            "improvements require more users and more time."
         )
 
         scenarios = pd.DataFrame({
