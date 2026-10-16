@@ -57,184 +57,113 @@ def render():
         "purchasers per 1,000 eligible users."
     )
 
-    with st.expander("Why test this change?"):
-        st.write(
-            "The GA4 funnel shows its largest drop-off between "
-            "viewing a product and adding it to the cart. "
-            "Uncertainty about shipping or returns could contribute, "
-            "but the funnel cannot establish the cause."
-        )
-
-        st.write(
-            "**Hypothesis:** Clearer shipping estimates, visible "
-            "return information, and reassurance near *Add to Cart* "
-            "will increase purchase conversion among first-time "
-            "product viewers."
-        )
-
-    with st.expander("Sample size, timing, and alternative scenarios"):
-        st.markdown("#### Planning Inputs")
+        with st.expander("Sample size, duration, and planning assumptions"):
+        st.markdown("#### Inputs from the SQL analysis")
 
         st.markdown(
-            "- **Source:** GA4 store data analyzed in BigQuery.\n"
-            "- **Eligible users:** The eligibility query identified "
-            "50,940 first-time visitors who viewed a product.\n"
-            "- **Baseline purchase conversion:** 1,713 of those users "
-            "purchased. Calculated as 1,713 ÷ 50,940 × 100 = **3.36%**.\n"
-            "- **Average daily eligible users:** The daily traffic "
-            "query measured **553.6 users per day** across 92 days."
+            "- **Population:** 50,940 first-time visitors who viewed "
+            "a product, identified in the GA4 BigQuery analysis.\n"
+            "- **Baseline conversion:** 1,713 purchasing users ÷ "
+            "50,940 eligible users = **3.36%**.\n"
+            "- **Average daily eligible users:** **553.6**, "
+            "measured across 92 days."
         )
 
-        st.markdown("#### Selected Experiment Design")
+        st.markdown("#### Selected design")
 
         st.markdown(
-            "- **Minimum detectable lift:** A **20% relative increase**, "
-            "selected for planning. This raises conversion from "
-            "3.36% to **4.032%**: 3.36% × 1.20.\n"
-            "- **Sample size:** **24,696 users—12,348 per group**, "
-            "calculated in Python using the baseline, detectable lift, "
-            "80% power, a 5% significance level, and a two-sided test.\n"
+            "- **Minimum detectable lift:** **20% relative**, "
+            "equivalent to conversion increasing from "
+            "3.36% to **4.032%**.\n"
+            "- **Sample size:** **24,696 users**, "
+            "split equally between the two groups.\n"
             "- **Estimated experiment duration:** "
-            "24,696 ÷ 553.6 = **44.6 days**, rounded to **45 days** "
-            "to reach the sample size, plus purchase follow-up."
-        )
-
-        st.markdown("#### Why a 20% Minimum Detectable Lift?")
-
-        st.write(
-            "The notebook compared detectable lifts of 10%, 15%, "
-            "20%, and 25%. The 20% option balances the size of "
-            "improvement we can detect with the estimated "
-            "experiment duration."
+            "24,696 ÷ 553.6 ≈ **45 days** to reach the sample "
+            "size, plus purchase follow-up."
         )
 
         st.write(
-            "The table below shows how smaller detectable "
-            "improvements require more users and more time."
+            "Sample size was calculated in Python using "
+            "statsmodels, with 80% power, a 5% significance "
+            "level, and a two-sided test."
+        )
+
+        st.markdown("#### Alternative scenarios")
+
+        st.write(
+            "Detecting smaller improvements requires more users "
+            "and a longer experiment. The 20% option balances "
+            "sensitivity with duration."
         )
 
         scenarios = pd.DataFrame({
-            "Relative improvement": ["10%", "15%", "20%", "25%"],
-            "Target conversion": [
+            "Minimum detectable lift": ["10%", "15%", "20%", "25%"],
+            "Conversion at that lift": [
                 "3.696%", "3.864%", "4.032%", "4.200%"
             ],
             "Users per group": [47299, 21490, 12348, 8068],
             "Total users": [94598, 42980, 24696, 16136],
-            "Recruitment days": [170.9, 77.6, 44.6, 29.1],
+            "Days to reach sample size": [170.9, 77.6, 44.6, 29.1],
         })
 
         st.dataframe(scenarios, hide_index=True)
 
-        st.write(
-            "These are alternative planning scenarios, not four "
-            "experiments or forecasts. Business value is still "
-            "needed to determine what improvement is worthwhile."
-        )
-
-    with st.expander("How would we decide whether to launch?"):
-        st.write(
-            "After reaching the planned sample and completing "
-            "purchase follow-up, compare conversion between "
-            "groups and estimate a confidence interval for "
-            "the difference."
-        )
+    with st.expander("Launch criteria and checks"):
+        st.markdown("#### Before the experiment")
 
         st.markdown(
-            "- **Business value:** Does the improvement justify "
-            "the cost of the change?\n"
-            "- **Engagement:** Do bounce and engagement measures "
-            "suggest a worse experience?\n"
-            "- **Page performance:** Does the revised page "
-            "become slower?\n"
-            "- **Purchase quality:** Do refunds or returns "
-            "increase, if those data are available?"
+            "- Confirm user eligibility and define the purchase "
+            "measurement window; align the baseline with both.\n"
+            "- Set acceptable limits for changes in engagement, "
+            "page speed, and refunds or returns where available.\n"
+            "- Allow purchase follow-up after the final users "
+            "enter the experiment."
+        )
+
+        st.markdown("#### After the experiment")
+
+        st.markdown(
+            "- Compare purchase conversion and the confidence "
+            "interval for the difference.\n"
+            "- Assess whether the improvement justifies "
+            "implementation costs.\n"
+            "- Check that engagement, page speed, and purchase "
+            "quality remain within the agreed limits."
         )
 
         st.write(
-            "Launch only if the evidence and business value "
-            "support it and the agreed guardrails are met. "
-            "Statistical significance alone is not enough."
+            "Launch when the evidence, business value, and "
+            "guardrails support the change."
         )
 
-    with st.expander("Technical design and definitions"):
-        design = pd.DataFrame({
-            "Parameter": [
-                "Eligible population",
-                "Randomization unit",
-                "Allocation",
-                "Primary metric",
-                "Baseline conversion",
-                "Minimum detectable effect",
-                "Corresponding treatment conversion",
-                "Absolute effect",
-                "Significance level",
-                "Statistical power",
-                "Test direction",
-                "Required users per group",
-                "Required users total",
-                "Eligible daily traffic assumption",
-                "Estimated recruitment duration",
-            ],
-            "Value": [
-                "First-time visitors who view a product",
-                "User",
-                "50/50",
-                "User-level purchase conversion",
-                "3.36%",
-                "20% relative lift",
-                "4.032%",
-                "+0.672 percentage points",
-                "5%",
-                "80%",
-                "Two-sided",
-                "12,348",
-                "24,696",
-                "553.6 users",
-                "44.6 days, approximately 6.4 weeks",
-            ],
-        })
-
-        st.dataframe(design, hide_index=True)
-
+    with st.expander("Statistical definitions and measurement"):
         st.markdown(
-            "- **Percentage points:** The difference between "
-            "two percentages. Moving from 3.36% to 4.032% is "
-            "+0.672 percentage points, or a 20% relative increase.\n"
-            "- **Minimum detectable effect (MDE):** The improvement "
-            "used to plan sample size. Smaller effects may exist "
-            "even if the test cannot reliably detect them.\n"
-            "- **80% power:** If the true improvement equals the "
-            "planned MDE and assumptions hold, the test has about "
-            "an 80% chance of detecting it.\n"
-            "- **5% significance level:** When there is no effect, "
-            "the test procedure has a 5% false-positive rate "
-            "under its assumptions.\n"
-            "- **Two-sided test:** Allows for either an increase "
+            "- **Minimum detectable lift:** The improvement used "
+            "to calculate sample size, not a predicted result.\n"
+            "- **Percentage points:** Moving from 3.36% to "
+            "4.032% adds 0.672 percentage points—a 20% relative lift.\n"
+            "- **80% power:** An 80% chance of detecting the planned "
+            "lift if it is real and the assumptions hold.\n"
+            "- **5% significance level:** A 5% false-positive rate "
+            "when there is no effect, under the test assumptions.\n"
+            "- **Two-sided test:** Detects either an increase "
             "or a decrease in conversion."
         )
 
         st.write(
-            "Sample sizes were calculated with statsmodels "
+            "**Calculation method:** statsmodels "
             "`NormalIndPower` and `proportion_effectsize`, "
-            "using equal group allocation and rounding up."
+            "with equal groups and sample sizes rounded up."
         )
 
         st.write(
-            "**Metric distinction:** This test measures user-level "
-            "purchase conversion. Product Analytics reports "
-            "ordered, same-session funnel completion. "
-            "The separate Criteo advertising analysis does not "
-            "evaluate this proposed change."
+            "**Measurement:** The experiment compares purchases "
+            "per assigned user. The Product Analytics funnel "
+            "measures ordered steps within a session."
         )
 
-    with st.expander("What needs confirmation before launch?"):
-        st.markdown(
-            "- Confirm the source and eligibility definitions "
-            "behind the 3.36% baseline and daily traffic estimate.\n"
-            "- Define how long each assigned user has to purchase "
-            "and align the baseline with that window.\n"
-            "- Define acceptable guardrail changes before testing.\n"
-            "- Include purchase follow-up in the timeline; "
-            "45 days covers recruitment, not necessarily "
-            "the full time to a decision."
+        st.write(
+            "**Hypothesis:** Clearer shipping and return information "
+            "may increase purchases. The funnel identifies "
+            "drop-off, but does not establish its cause."
         )
