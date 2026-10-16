@@ -60,7 +60,7 @@ def render():
             "products, adding items to a cart, starting checkout, and "
             "purchasing. We use these records to identify where shoppers"
             "stop progressing toward a purchase. ",
-            height=220,
+            height=250,
         )
 
     with right:
@@ -72,7 +72,7 @@ def render():
             "and control groups, allowing us to estimate whether "
             "the advertising treatment increased purchases and "
             "explore which users responded more strongly. ",
-            height=220,
+            height=250,
         )
 
     st.subheader(" 💡  Highlights from the analysis")
