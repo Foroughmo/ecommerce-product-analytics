@@ -86,7 +86,7 @@ def render():
             "The biggest drop-off occurs between viewing a product "
             "and adding it to the cart. This pattern appears "
             "across desktop, mobile, and tablet.",
-            height=250,
+            height=260,
         )
 
     with col2:
@@ -96,7 +96,7 @@ def render():
             "In the analyzed sample, the advertising group had a "
             "higher purchase rate than the control group. "
             "The difference was statistically significant.",
-            height=250,
+            height=260,
         )
 
     with col3:
@@ -107,7 +107,7 @@ def render():
             "to advertising. The top 10% showed an estimated "
             "82 additional purchases per 10,000 users, "
             "compared with 11 overall. ",
-            height=250,
+            height=260,
         )
 
     st.subheader("What's next?")
