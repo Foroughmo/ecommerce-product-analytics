@@ -40,13 +40,13 @@ def render():
     )
 
     st.write(
-        "This project analyzes the shopping journey from product view to"
-        "purchase and proposes an experiment to improve the shopping"
+        "This project analyzes the shopping journey from product view to "
+        "purchase and proposes an experiment to improve the shopping "
         "experience. It also uses a separate advertising experiment "
         "to assess whether advertising increases purchases."
     )
 
-    st.subheader(" 📊 A first look at the data")
+    st.subheader(" 📊 Two datasets, two questions ")
 
     left, right = st.columns(2)
 
@@ -58,7 +58,7 @@ def render():
             "to the Google Merchandise Store, an online shop selling "
             "Google-branded products. It records actions such as viewing "
             "products, adding items to a cart, starting checkout, and "
-            "purchasing. We use these records to identify where shoppers"
+            "purchasing. We use these records to identify where shoppers "
             "stop progressing toward a purchase. ",
             height=250,
         )
@@ -68,7 +68,7 @@ def render():
             "Advertising experiment · Criteo",
             "Does advertising lead to more purchases?",
             "We analyze 1 million records from Criteo’s public "
-            "advertising experiment dataset. It includes treatment"
+            "advertising experiment dataset. It includes treatment "
             "and control groups, allowing us to estimate whether "
             "the advertising treatment increased purchases and "
             "explore which users responded more strongly. ",
@@ -81,27 +81,26 @@ def render():
 
     with col1:
         insight_card(
-            "01 · The shopping journey",
-            "Most product views stop before the cart",
-            f"Across devices, only {min_cart_rate:.1f}–"
-            f"{max_cart_rate:.1f}% of sessions with a product view "
-            "continue to Add to Cart. This is the largest drop-off "
-            "in the measured journey.",
+            "01 · Shopping journey",
+            " 🛒 Only about 18 in 100 sessions reach the cart",
+            "The biggest drop-off occurs between viewing a product "
+            "and adding it to the cart. This pattern appears "
+            "across desktop, mobile, and tablet.",
         )
 
     with col2:
         insight_card(
-            "02 · The advertising experiment",
-            f"About {extra_purchases:.0f} extra purchases per 10,000",
-            "The advertising treatment increased conversion "
-            "compared with control in the analyzed sample. "
-            "The estimated difference is statistically significant.",
+            "02 · Advertising Results",
+            f" 🧾 About About 11 additional purchases per 10,000 users",
+            "TIn the analyzed sample, the advertising group had a "
+            "higher purchase rate than the control group. "
+            "The difference was statistically significant.",
         )
 
     with col3:
         insight_card(
             "03 · Differences between shoppers",
-            "Some shoppers may respond more strongly",
+            " 👤 Some shoppers may respond more strongly",
             "The 10% ranked highest by the model had an estimated "
             f"conversion increase of {top['lift_pp']:.2f} percentage "
             "points on held-out data. This is a reason to "
