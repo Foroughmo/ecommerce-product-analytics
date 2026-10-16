@@ -123,18 +123,6 @@ def render():
         )
 
         st.write(
-            "**Calculation method:** statsmodels "
-            "`NormalIndPower` and `proportion_effectsize`, "
-            "with equal groups and sample sizes rounded up."
-        )
-
-        st.write(
-            "**Measurement:** The experiment compares purchases "
-            "per assigned user. The Product Analytics funnel "
-            "measures ordered steps within a session."
-        )
-
-        st.write(
             "**Hypothesis:** Clearer shipping and return information "
             "may increase purchases. The funnel identifies "
             "drop-off, but does not establish its cause."
