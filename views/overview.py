@@ -154,7 +154,7 @@ def render():
             "users. Determine which approach generates more profit."
         )
 
-        with st.expander("See the numbers and methodology"):
+    with st.expander("See the numbers and methodology"):
         st.markdown("#### Shopping journey")
 
         st.markdown(
