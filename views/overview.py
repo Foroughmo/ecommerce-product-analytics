@@ -32,20 +32,18 @@ def render():
     extra_purchases = overall["lift_pp"] * 100
 
     page_header(
-        title=" 🛒 From Browsing to Buying",
+        title=" 🛒 What Turns a Visit into a Purchase?",
         subtitle=(
-            "Where do shoppers leave and what could help "
-            "more of them become customers?"
+            "Understand where shoppers drop off and identify opportunities to improve purchase conversion."
         ),
         eyebrow="An e-commerce case study",
     )
 
     st.write(
-        "Getting people to visit a store is only part of the challenge. "
-        "They still need to find something they want, add it to their "
-        "cart, and complete a purchase. This project follows that "
-        "journey, identifies an opportunity to improve it, and "
-        "outlines how to test whether a change makes a difference."
+        "This project analyzes the shopping journey from product view to"
+        "purchase and proposes an experiment to improve the shopping"
+        "experience. It also uses a separate advertising experiment "
+        "to assess whether advertising increases purchases."
     )
 
     st.subheader(" 📊 A first look at the data")
@@ -54,27 +52,30 @@ def render():
 
     with left:
         insight_card(
-            "Shopping behavior · Google Analytics",
+            "Google Analytics  (GA4) dataset . Shopping behavior",
             "Follow the path to purchase",
-            "Public sample data from the Google Merchandise Store "
-            "captures product views, cart additions, checkout, and "
-            "purchases. The analysis follows these steps within a "
-            "shopping session and compares results across devices.",
+            "This dataset contains anonymized activity from visitors "
+            "to the Google Merchandise Store, an online shop selling "
+            "Google-branded products. It records actions such as viewing "
+            "products, adding items to a cart, starting checkout, and "
+            "purchasing. We use these records to identify where shoppers"
+            "stop progressing toward a purchase. ",
             height=220,
         )
 
     with right:
         insight_card(
             "Advertising experiment · Criteo",
-            "Measure what advertising changes",
-            "A sample of 1 million records from a public advertising "
-            "experiment lets us compare purchase rates between "
-            "people assigned to an advertising treatment and "
-            "a control group.",
+            "Does advertising lead to more purchases?",
+            "We analyze 1 million records from Criteo’s public "
+            "advertising experiment dataset. It includes treatment"
+            "and control groups, allowing us to estimate whether "
+            "the advertising treatment increased purchases and "
+            "explore which users responded more strongly. ",
             height=220,
         )
 
-    st.subheader(" 💡  What stood out")
+    st.subheader(" 💡  Highlights from the analysis")
 
     col1, col2, col3 = st.columns(3)
 
