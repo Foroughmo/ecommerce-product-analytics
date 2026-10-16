@@ -92,19 +92,20 @@ def render():
         insight_card(
             "02 · Advertising Results",
             f" 🧾 About About 11 additional purchases per 10,000 users",
-            "TIn the analyzed sample, the advertising group had a "
+            "In the analyzed sample, the advertising group had a "
             "higher purchase rate than the control group. "
             "The difference was statistically significant.",
         )
 
     with col3:
         insight_card(
-            "03 · Differences between shoppers",
-            " 👤 Some shoppers may respond more strongly",
-            "The 10% ranked highest by the model had an estimated "
-            f"conversion increase of {top['lift_pp']:.2f} percentage "
-            "points on held-out data. This is a reason to "
-            "investigate targeting further.",
+            "03 · Targeting opportunity",
+            " 👤 Conversion lift differs across user segments",
+            "The model ranked users by how much advertising was "
+            "expected to increase their likelihood of purchasing. "
+            "In the highest-ranked 10%, advertising produced an "
+            "estimated 82 additional purchases per 10,000 users, "
+            "compared with 11 per 10,000 overall.",
         )
 
     st.subheader("What's next?")
