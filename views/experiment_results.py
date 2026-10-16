@@ -88,12 +88,6 @@ def render():
             "conversion rate and sample size."
         )
 
-    st.info(
-        "Scope: Criteo non-uniformly subsampled the public data to conceal "
-        "the original incrementality. These estimates describe the released "
-        "benchmark under the analysis assumptions; they are not estimates "
-        "of original advertiser lift or a production forecast."
-    )
     st.markdown(
         "[Criteo dataset documentation]"
         "(https://huggingface.co/datasets/criteo/criteo-uplift)"
