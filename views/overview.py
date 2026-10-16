@@ -110,7 +110,7 @@ def render():
             height=260,
         )
 
-    st.subheader("What's next?")
+    st.subheader(" ⏩️ What's next?")
 
     product_tab, advertising_tab = st.tabs(
         ["Improve the product experience", "Evaluate advertising value"]
