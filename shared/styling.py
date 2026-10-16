@@ -36,7 +36,7 @@ def apply_style():
         }
 
         h3 {
-            font-size: 1.05rem !important;
+            font-size: 1.5rem !important;
         }
 
         p, li {
@@ -64,7 +64,7 @@ def apply_style():
 
         .report-eyebrow {
             color: #087F8C;
-            font-size: 1.5 rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
