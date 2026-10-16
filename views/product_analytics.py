@@ -98,6 +98,27 @@ def render():
         "complete the full purchase journey."
     )
 
+
+    st.subheader("👥 New vs returning visitors")
+
+    new_col, returning_col = st.columns(2)
+
+    new_col.metric(
+        "New visitors · Journey completion",
+        "2.11%",
+    )
+
+    returning_col.metric(
+        "Returning visitors · Journey completion",
+        "6.53%",
+    )
+
+    st.write(
+        "New-visitor sessions are less likely to complete the "
+        "purchase journey. This supports investigating the "
+        "experience for first-time visitors."
+    )
+    
     st.subheader("💡 What could we test?")
 
     st.write(
