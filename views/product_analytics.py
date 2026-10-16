@@ -9,7 +9,9 @@ from shared.styling import page_header, takeaway
 def render():
     page_header(
         title="Where do shoppers drop off?",
-        subtitle="Follow the journey from product view to purchase.",
+        subtitle="Follow the journey from product view to purchase."
+        "This analysis follows shopping sessions from product view to purchase to identify where fewer sessions reach the next step."
+        "A session is a visit to the store; one person can visit more than once.",
         eyebrow="Product analytics · GA4",
     )
 
@@ -25,6 +27,23 @@ def render():
     row = funnel.loc[
         funnel["device_category"] == device
     ].iloc[0]
+
+        col1, col2, col3 = st.columns(3)
+
+    col1.metric(
+        "Sessions with a product view",
+        f"{int(row['view_sessions']):,}",
+    )
+
+    col2.metric(
+        "Sessions completing the journey",
+        f"{int(row['purchase_sessions']):,}",
+    )
+
+    col3.metric(
+        "Journey completion rate",
+        f"{row['overall_conversion_rate']:.2f}%",
+    )
 
     stages = [
         "Product view",
