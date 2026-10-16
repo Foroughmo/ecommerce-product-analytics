@@ -39,28 +39,22 @@ def render():
 
     st.write(
         "**Participants:** : First-time visitors who view a product.  \n"
-        "**Assignment:** Random 50/50 split; each user keeps the same version."
+        "**Assignment:** Random 50/50 split; each user keeps the same version. \n"
         "**Primary metric** Percentage of assigned users who purchase. "
     )
 
-    st.subheader("📏 How large would the test be?")
+    st.subheader("📏 Sample Size and Duration")
 
     col1, col2, col3 = st.columns(3)
 
     col1.metric("Participants needed", "24,696")
-    col2.metric("Improvement to detect", "20% relative")
-    col3.metric("Estimated recruitment", "≈45 days")
+    col2.metric("Minimum Detectable Lift", "20% relative")
+    col3.metric("Estimated Experiment Duration.", "≈45 days")
 
     takeaway(
         "The test is planned to detect an increase from 3.36% "
         "to 4.032% purchase conversion—about 7 additional "
         "purchasers per 1,000 eligible users."
-    )
-
-    st.write(
-        "These are planning estimates, not predicted results. "
-        "The baseline, eligible traffic, and purchase measurement "
-        "window still need confirmation."
     )
 
     with st.expander("Why test this change?"):
@@ -73,15 +67,9 @@ def render():
 
         st.write(
             "**Hypothesis:** Clearer shipping estimates, visible "
-            "return information, and reassurance near Add to Cart "
+            "return information, and reassurance near **Add to Cart** "
             "will increase purchase conversion among first-time "
             "product viewers."
-        )
-
-        st.write(
-            "This experiment targets a narrower population than "
-            "the device funnel, which describes shopping sessions "
-            "across a broader group of visitors."
         )
 
     with st.expander("Sample size, timing, and alternative scenarios"):
