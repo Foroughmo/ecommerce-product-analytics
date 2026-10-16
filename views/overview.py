@@ -93,7 +93,7 @@ def render():
     with col2:
         insight_card(
             "02 · Advertising Results",
-            f" 🧾 About About 11 additional purchases per 10,000 users",
+            f"🧾 About {extra_purchases:.0f} additional purchases per 10,000 users",
             "In the analyzed sample, the advertising group had a "
             "higher purchase rate than the control group. "
             "The difference was statistically significant.",
