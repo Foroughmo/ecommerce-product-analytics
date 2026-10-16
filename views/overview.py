@@ -52,14 +52,15 @@ def render():
 
     with left:
         insight_card(
-            "Google Analytics  (GA4) dataset . Shopping behavior",
+            "Google Analytics 4 (GA4) · Shopping behavior",
             "Follow the path to purchase",
-            "This dataset contains anonymized activity from visitors "
-            "to the Google Merchandise Store, an online shop selling "
-            "Google-branded products. It records actions such as viewing "
-            "products, adding items to a cart, starting checkout, and "
-            "purchasing. We use these records to identify where shoppers "
-            "stop progressing toward a purchase. ",
+            "This dataset contains anonymized activity from the "
+            "Google Merchandise Store, an online shop selling "
+            "Google-branded products. "
+            "It covers 270,154 users and 4.3 million recorded "
+            "actions across 92 days. "
+            "We follow product views, cart additions, checkout, "
+            "and purchases to identify where shoppers stop progressing.",
             height=250,
         )
 
