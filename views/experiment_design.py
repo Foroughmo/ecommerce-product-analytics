@@ -22,16 +22,18 @@ def render():
 
     with control_col:
         insight_card(
-            "A · Control — Current page",
+            "A · Control",
+            "Current page",
             "Keep the existing experience.",
             height=150,
         )
 
     with treatment_col:
         insight_card(
-            "B · Treatment — Revised page",
-            "Make shipping estimates and return information more visible"
-            "near Add to Cart. ",
+            "B · Treatment",
+            "Revised page",
+            "Make shipping estimates and return information "
+            "more visible near Add to Cart.",
             height=150,
         )
 
