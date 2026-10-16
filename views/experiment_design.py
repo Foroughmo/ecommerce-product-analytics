@@ -63,8 +63,8 @@ def render():
         st.markdown(
             "- **Population:** 50,940 first-time visitors who viewed "
             "a product, identified in the GA4 BigQuery analysis.\n"
-            "- **Baseline conversion:** 1,713 purchasing users ÷ "
-            "50,940 eligible users = **3.36%**.\n"
+            "- **Current purchase rate:** :Of 50,940 first-time visitors who viewed "
+            "a product, 1,713 purchased (3.36%).\n"
             "- **Average daily eligible users:** **553.6**, "
             "measured across 92 days."
         )
@@ -107,34 +107,6 @@ def render():
         })
 
         st.dataframe(scenarios, hide_index=True)
-
-    with st.expander("Launch criteria and checks"):
-        st.markdown("#### Before the experiment")
-
-        st.markdown(
-            "- Confirm user eligibility and define the purchase "
-            "measurement window; align the baseline with both.\n"
-            "- Set acceptable limits for changes in engagement, "
-            "page speed, and refunds or returns where available.\n"
-            "- Allow purchase follow-up after the final users "
-            "enter the experiment."
-        )
-
-        st.markdown("#### After the experiment")
-
-        st.markdown(
-            "- Compare purchase conversion and the confidence "
-            "interval for the difference.\n"
-            "- Assess whether the improvement justifies "
-            "implementation costs.\n"
-            "- Check that engagement, page speed, and purchase "
-            "quality remain within the agreed limits."
-        )
-
-        st.write(
-            "Launch when the evidence, business value, and "
-            "guardrails support the change."
-        )
 
     with st.expander("Statistical definitions and measurement"):
         st.markdown(
