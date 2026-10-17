@@ -110,7 +110,7 @@ def render():
             "users are compared by assignment, regardless of actual ad exposure.\n"
             "- **Null hypothesis:** Treatment and control conversion rates are equal.\n"
             "- **Test:** Two-sided two-proportion z-test, α = 0.05.\n"
-            "- **95% confidence interval:** Normal approximation " \n"
+            "- **95% confidence interval:** Normal approximation \n"
             "- **Group sizes:** The comparison accounts for each group's "
             "conversion rate and sample size."
         )
