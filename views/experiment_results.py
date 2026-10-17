@@ -61,8 +61,6 @@ def render():
         "**Treatment conversion exceeded control in this benchmark sample.** "
         "The confidence interval excludes zero "
         "(two-sided two-proportion z-test: p ≈ 7.24 × 10⁻¹⁴). "
-        f"The estimated difference is equivalent to approximately {lift * 1_000:.0f} "
-        "additional conversions per 100,000 users assigned to treatment."
     )
 
     st.subheader(" 💡 What is the decision?")
@@ -77,8 +75,6 @@ def render():
         f"The estimated lift translates to **{incremental:.1f} incremental "
         f"conversions per 100,000 users assigned to treatment** "
         f"(95% CI: {incremental_lower:.1f}–{incremental_upper:.1f}). "
-        "This rescales the benchmark estimate to illustrate its potential "
-        "business impact."
     )
 
     st.markdown(
@@ -110,12 +106,11 @@ def render():
 
     with st.expander("Statistical methodology"):
         st.markdown(
-            "- **Estimand:** Intention-to-treat difference in user conversion rates; "
+            "- **Treatment effect:** Intention-to-treat difference in user conversion rates; "
             "users are compared by assignment, regardless of actual ad exposure.\n"
             "- **Null hypothesis:** Treatment and control conversion rates are equal.\n"
             "- **Test:** Two-sided two-proportion z-test, α = 0.05.\n"
-            "- **95% confidence interval:** Normal approximation using the "
-            "unpooled standard error.\n"
+            "- **95% confidence interval:** Normal approximation " \n"
             "- **Group sizes:** The comparison accounts for each group's "
             "conversion rate and sample size."
         )
