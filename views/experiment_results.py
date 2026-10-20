@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 
 from shared.data import load_experiment_results
-from shared.styling import page_header, takeaway
+from shared.styling import insight_card, page_header, takeaway
+
 
 
 def render():
@@ -26,17 +27,27 @@ def render():
         "to two groups:"
     )
     
-    col1, col2 = st.columns(2)
+    left, right = st.columns(2)
     
-    with col1:
-        st.markdown("**Control group**")
-        st.metric("Users", "149,825")
-        st.write("Excluded from advertising targeting.")
-    
-    with col2:
-        st.markdown("**Treatment group**")
-        st.metric("Users", "850,175")
-        st.write("Eligible to receive advertising.")
+    with left:
+        insight_card(
+            "Control Group · 149,825 Users",
+            "No advertising targeting",
+            "These users were excluded from advertising "
+            "targeting, providing a baseline for comparison.",
+            height=170,
+        )
+
+    with right:
+        insight_card(
+            "Treatment Group · 850,175 Users",
+            "Eligible for advertising",
+            "These users were eligible to receive ads, "
+            "allowing us to measure whether advertising "
+            "increased conversions.",
+            height=170,
+        )
+
     
     st.caption(
         "Not all users eligible for advertising necessarily saw an ad. "
