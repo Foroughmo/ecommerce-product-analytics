@@ -7,16 +7,18 @@ from shared.styling import insight_card, page_header, takeaway
 def render():
     page_header(
         title="Can better product-page information increase sales?",
-        subtitle="Compare two product pages for first-time visitors.",
+        subtitle="Designing an A/B test to evaluate whether clearer "
+        "product information improves add-to-cart conversion among first-time visitors.",
         eyebrow="Experiment design · Proposed, not yet run",
     )
 
     st.write(
-        "Only about 18–19 in 100 product-view sessions reach the cart. "
-        "Would clearer information help more shoppers take the next step?"
+        "The funnel analysis showed that only 18–19% of product-view sessions"
+        "reach the cart. This experiment proposes testing whether improved "
+        "product-page information can increase that rate. "
     )
 
-    st.subheader("🔀 Two experiences to compare")
+    st.subheader("🔀 Two Experiences to Compare")
 
     control_col, treatment_col = st.columns(2)
 
@@ -39,7 +41,7 @@ def render():
 
     st.write(
         "**Participants:** : First-time visitors who view a product.  \n"
-        "**Assignment:** Random 50/50 split; each user keeps the same version. \n"
+        "**Assignment:** Random 50/50 split; each user keeps the same version.  \n"
         "**Primary metric** Percentage of assigned users who purchase. "
     )
 
@@ -58,18 +60,18 @@ def render():
     )
 
     with st.expander("Sample size, duration, and planning assumptions"):
-        st.markdown("#### Inputs from the SQL analysis")
+        st.markdown("#### Key Metrics from the GA4 SQL Analysis")
 
         st.markdown(
             "- **Population:** 50,940 first-time visitors who viewed "
             "a product, identified in the GA4 BigQuery analysis.\n"
             "- **Current purchase rate:** :Of 50,940 first-time visitors who viewed "
             "a product, 1,713 purchased (3.36%).\n"
-            "- **Average daily eligible users:** **553.6**, "
+            "- **Average daily eligible users:** 50,940 ÷ 92 = **553.6**, "
             "measured across 92 days."
         )
 
-        st.markdown("#### Selected design")
+        st.markdown("#### Selected Experiment Design")
 
         st.markdown(
             "- **Minimum detectable lift:** **20% relative**, "
