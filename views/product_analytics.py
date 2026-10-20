@@ -9,14 +9,14 @@ from shared.styling import page_header, takeaway
 def render():
     page_header(
         title="Where do shoppers drop off?",
-        subtitle="Follow the shopping journey from product view to purchase.",
+        subtitle="Analyzing the shopping funnel from product view to purchase to identify key drop-off points.",
         eyebrow="Product analytics · GA4",
     )
 
     st.write(
-        "Explore how many shopping sessions reach each step. "
-        "A session is a visit to the store; one person can visit "
-        "more than once."
+        "The analysis tracks how many shopping sessions reach each "
+        "stage of the funnel. Each session represents a store visit,"
+        "and a user may have multiple sessions."
     )
 
     funnel = load_funnel()
@@ -99,7 +99,7 @@ def render():
     )
 
 
-    st.subheader("👥 New vs returning visitors")
+    st.subheader("👥 New vs Returning Visitors")
 
     new_col, returning_col = st.columns(2)
 
@@ -119,7 +119,7 @@ def render():
         "experience for first-time visitors."
     )
     
-    st.subheader("💡 What could we test?")
+    st.subheader("💡 What Could We Test?")
 
     st.write(
         "Test whether clearer shipping and return information "
@@ -200,8 +200,10 @@ def render():
             "- **Product matching:** Steps may involve different products.\n"
             "- **Completion rate:** Full-funnel purchase sessions "
             "divided by product-view sessions.\n"
-            "- **Step conversion:** Sessions reaching the next step "
-            "divided by sessions reaching the current step."
+            "- **Step conversion:** Step conversion measures the percentage of "
+            "shopping sessions that move from one funnel stage to the next."
+            "Sessions reaching the next step divided by sessions reaching "
+            "the current step."
         )
 
         st.write(
