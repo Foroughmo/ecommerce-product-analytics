@@ -7,16 +7,24 @@ from shared.styling import insight_card, page_header, takeaway
 def render():
     page_header(
         title="Can better product-page information increase sales?",
-        subtitle="Designing an A/B test to evaluate whether clearer "
-        "product information improves add-to-cart conversion among first-time visitors.",
+        subtitle=(
+        "Designing an A/B test to determine whether clearer "
+        "shipping and return information increases purchases "
+        "among first-time product viewers."
+    ),
         eyebrow="Experiment design · Proposed, not yet run",
     )
 
+
     st.write(
-        "The funnel analysis showed that only 18–19% of product-view sessions"
-        "reach the cart. This experiment proposes testing whether improved "
-        "product-page information can increase that rate. "
+        "The funnel analysis found that only 18–19% of product-view "
+        "sessions lead to adding an item to the cart. This suggests "
+        "an opportunity to improve the product-page experience. "
+        "One possible explanation is that customers need clearer "
+        "shipping and return information before deciding to buy. "
+        "This experiment is designed to test that hypothesis."
     )
+
 
     st.subheader("🔀 Two Experiences to Compare")
 
@@ -42,7 +50,7 @@ def render():
     st.write(
         "**Participants:** : First-time visitors who view a product.  \n"
         "**Assignment:** Random 50/50 split; each user keeps the same version.  \n"
-        "**Primary metric** Percentage of assigned users who purchase. "
+        "**Primary metric:** Percentage of eligible users who purchase."
     )
 
     st.subheader("📏 Sample Size and Duration")
@@ -52,6 +60,15 @@ def render():
     col1.metric("Participants needed", "24,696")
     col2.metric("Minimum Detectable Lift", "20% relative")
     col3.metric("Estimated Experiment Duration.", "≈45 days")
+
+    
+    st.caption(
+        "Why 20%? Detecting smaller improvements would require "
+        "a much longer experiment. A 20% relative lift offers a "
+        "practical balance between sensitivity and duration. "
+        "This is the improvement the test is designed to detect, "
+        "not a prediction of the outcome."
+    )
 
     takeaway(
         "The test is planned to detect an increase from 3.36% "
@@ -65,8 +82,8 @@ def render():
         st.markdown(
             "- **Population:** 50,940 first-time visitors who viewed "
             "a product, identified in the GA4 BigQuery analysis.\n"
-            "- **Current purchase rate:** :Of 50,940 first-time visitors who viewed "
-            "a product, 1,713 purchased (3.36%).\n"
+            "- **Current purchase rate:** 1,713 of 50,940 eligible "
+            "visitors purchased (3.36%).\n"
             "- **Average daily eligible users:** 50,940 ÷ 92 = **553.6**, "
             "measured across 92 days."
         )
@@ -88,6 +105,12 @@ def render():
             "Sample size was calculated in Python using "
             "statsmodels, with 80% power, a 5% significance "
             "level, and a two-sided test."
+        )
+        st.caption(
+            "The 45-day estimate assumes future eligible traffic "
+            "remains similar to the historical average of 553.6 users "
+            "per day. It excludes any additional purchase follow-up "
+            "period and assumes all eligible users can participate."
         )
 
         st.markdown("#### Alternative scenarios")
