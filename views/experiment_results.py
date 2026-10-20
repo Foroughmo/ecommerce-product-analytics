@@ -124,7 +124,7 @@ def render():
     st.subheader("💡 Business takeaway")
 
     takeaway(
-            "**Recommendation:** The results support expanding advertising,"
+            "Recommendation: The results support expanding advertising, "
         "but first we need to confirm that the revenue from "
         "additional purchases outweighs the cost of running the ads."
         )
