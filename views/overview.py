@@ -76,7 +76,7 @@ def render():
             height=250,
         )
 
-    st.subheader(" 💡  Highlights from the analysis")
+    st.subheader(" 💡  Highlights from the Analysis")
 
     col1, col2, col3 = st.columns(3)
 
