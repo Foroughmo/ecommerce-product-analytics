@@ -25,21 +25,54 @@ def render():
         "This experiment is designed to test that hypothesis."
     )
 
-    st.subheader("🧭 From Insight to Experiment")
 
+    st.subheader("From Insight to Experiment")
+    
     steps = [
-        ("1. Opportunity", "Low product-view-to-cart progression"),
-        ("2. Hypothesis", "Clearer product information may reduce hesitation"),
-        ("3. Experiment", "Randomized A/B test measuring purchases"),
-        ("4. Decision", "Evaluate conversion lift and business impact"),
+        ("01", "Opportunity", "Low product-view-to-cart conversion"),
+        ("02", "Hypothesis", "Clearer information may reduce hesitation"),
+        ("03", "Experiment", "A/B test measuring purchase conversion"),
+        ("04", "Decision", "Assess conversion lift and business impact"),
     ]
+    
+    cols = st.columns([1, 0.12, 1, 0.12, 1, 0.12, 1], gap="small")
+    
+    for i, (number, title, description) in enumerate(steps):
+        with cols[i * 2]:
+            st.markdown(
+                f"""
+                <div style="
+                    background: #FFFFFF;
+                    border: 1px solid #DDE4EE;
+                    border-radius: 12px;
+                    padding: 18px;
+                    min-height: 155px;
+                ">
+                    <div style="color:#6683B0; font-size:14px; font-weight:700;">
+                        STEP {number}
+                    </div>
+                    <div style="
+                        color:#172B4D;
+                        font-size:19px;
+                        font-weight:700;
+                        margin:9px 0;
+                    ">{title}</div>
+                    <div style="color:#526480; font-size:15px; line-height:1.5;">
+                        {description}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    
+        if i < 3:
+            with cols[i * 2 + 1]:
+                st.markdown(
+                    "<div style='text-align:center; padding-top:57px; "
+                    "color:#6683B0; font-size:23px;'>→</div>",
+                    unsafe_allow_html=True,
+                )
 
-    cols = st.columns(4)
-
-    for col, (title, description) in zip(cols, steps):
-        with col:
-            st.markdown(f"**{title}**")
-            st.caption(description)
 
     
     st.subheader("🔀 Two Experiences to Compare")
