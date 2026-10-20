@@ -124,9 +124,9 @@ def render():
     st.subheader("💡 Business takeaway")
 
     takeaway(
-            "Recommendation: Consider scaling advertising, "
-            "subject to confirming that incremental conversion value "
-            "exceeds advertising costs and key guardrails remain stable."
+            "**Recommendation:** The results support expanding advertising,"
+        "but first we need to confirm that the revenue from "
+        "additional purchases outweighs the cost of running the ads."
         )
 
     # Section 5: Technical details
