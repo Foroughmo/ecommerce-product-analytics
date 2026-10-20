@@ -26,7 +26,7 @@ def render():
     )
 
 
-    st.subheader("From Insight to Experiment")
+    st.subheader(" 🧭 From Insight to Experiment")
     
     steps = [
         ("01", "Opportunity", "Low product-view-to-cart conversion"),
