@@ -46,13 +46,13 @@ def render():
         "to assess whether advertising increases purchases."
     )
 
-    st.subheader(" 📊 Two datasets, two questions ")
+    st.subheader(" 📊 Two Datasets, Two Questions ")
 
     left, right = st.columns(2)
 
     with left:
         insight_card(
-            "Google Analytics 4 (GA4) · Shopping behavior",
+            "Google Analytics (GA4) · Shopping Behavior",
             "Follow the path to purchase",
             "This dataset contains anonymized activity from the "
             "Google Merchandise Store, an online shop selling "
@@ -66,7 +66,7 @@ def render():
 
     with right:
         insight_card(
-            "Advertising experiment · Criteo",
+            "Advertising Experiment · Criteo",
             "Does advertising lead to more purchases?",
             "We analyze 1 million records from Criteo’s public "
             "advertising experiment dataset. It includes treatment "
@@ -82,7 +82,7 @@ def render():
 
     with col1:
         insight_card(
-            "01 · Shopping journey",
+            "01 · Shopping Journey",
             " 🛒 Only about 18 in 100 sessions reach the cart",
             "The biggest drop-off occurs between viewing a product "
             "and adding it to the cart. This pattern appears "
@@ -102,7 +102,7 @@ def render():
 
     with col3:
         insight_card(
-            "03 · Targeting opportunity",
+            "03 · Targeting Opportunity",
             " 👤 Conversion lift differs across user segments",
             "The model ranked users by their predicted response "
             "to advertising. The top 10% showed an estimated "
@@ -111,10 +111,10 @@ def render():
             height=260,
         )
 
-    st.subheader("⏩ What's next?")
+    st.subheader("⏩ What's Next?")
 
     product_tab, advertising_tab = st.tabs(
-        ["Product experience", "Advertising value"]
+        ["Product Experience", "Advertising Value"]
     )
 
     with product_tab:
@@ -147,7 +147,7 @@ def render():
             )
 
     with advertising_tab:
-        st.markdown("#### Compare advertising strategies")
+        st.markdown("#### Compare Advertising Strategies")
 
         st.write(
             "- Compare advertising costs and additional purchases "
@@ -171,7 +171,7 @@ def render():
             "starting checkout, and purchasing—in order within one session."
         )
 
-        st.markdown("#### Proposed product-page experiment")
+        st.markdown("#### Proposed Product-Page Experiment")
 
         st.markdown(
             "- **Comparison:** Randomly assign users equally to "
@@ -184,7 +184,7 @@ def render():
             "5% significance level, two-sided test."
         )
 
-        st.markdown("#### Advertising results: all users")
+        st.markdown("#### Advertising Results: all users")
 
         st.markdown(
             f"- **Control-group purchase rate:** "
@@ -200,7 +200,7 @@ def render():
             "per 10,000 users."
         )
 
-        st.markdown("#### Advertising results: top-ranked 10%")
+        st.markdown("#### Advertising Results: top-ranked 10%")
 
         st.write(
             "Users ranked highest by their predicted response "
