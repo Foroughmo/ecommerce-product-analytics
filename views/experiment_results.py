@@ -123,7 +123,7 @@ def render():
     # Section 4: Business recommendation
     st.subheader("💡 Business takeaway")
 
-       takeaway(
+    takeaway(
             "Recommendation: Consider scaling advertising, "
             "subject to confirming that incremental conversion value "
             "exceeds advertising costs and key guardrails remain stable."
