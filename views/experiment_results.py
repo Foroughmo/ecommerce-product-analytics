@@ -64,7 +64,8 @@ def render():
             "and the statistical analysis accounts for the difference."
         )
 
-    # Section 2: Experiment results
+    
+    # Section 2: Results
     st.subheader("🔎 Did advertising make a difference?")
 
     left, right = st.columns(2)
@@ -72,56 +73,29 @@ def render():
     with left:
         st.metric(
             "Control conversion rate",
-            f"{control_rate:.3f}%",
+            f"{control_rate:.3f}%"
         )
 
     with right:
         st.metric(
             "Treatment conversion rate",
-            f"{treatment_rate:.3f}%",
+            f"{treatment_rate:.3f}%"
         )
 
     st.markdown(
-        f"**Result: {relative_lift:+.1f}% higher conversion rate** "
-        "among users eligible for advertising, equivalent to "
-        f"approximately {lift * 100:.1f} additional conversions "
-        "per 10,000 users."
+        f"**{relative_lift:+.1f}% higher conversion rate** "
+        "for users eligible for advertising — approximately "
+        f"**{lift * 100:.0f} additional conversions per 10,000 users**."
     )
 
-    st.write(
-        "The difference is statistically significant, meaning "
-        "it is unlikely to be explained by random variation alone."
-    )
-
-    # Section 3: Business decision
-    st.subheader("💡 What does this mean for the business?")
-
-    incremental = lift * 1_000
-    incremental_lower = lower * 1_000
-    incremental_upper = upper * 1_000
-
-    st.write(
-        f"At a scale of 100,000 users, the estimated improvement "
-        f"represents **{incremental:.0f} additional conversions** "
-        f"(95% confidence interval: "
-        f"{incremental_lower:.0f}–{incremental_upper:.0f})."
-    )
-
-    st.write(
-        "Advertising appears effective at increasing conversions, "
-        "but the business must determine whether the additional "
-        "revenue justifies the advertising costs."
-    )
+    # Section 3: Business recommendation
+    st.subheader("💡 Business takeaway")
 
     takeaway(
-        "Recommendation: Validate the result in a production experiment "
-        "and expand advertising only if the incremental profit "
-        "meets business targets and customer experience remains acceptable."
-    )
-
-    st.write(
-        "**Next question:** Can we identify which users respond most "
-        "strongly to advertising to improve targeting efficiency?"
+        "Advertising increased conversions in this experiment, "
+        "with statistically significant results. "
+        "Before scaling, evaluate whether the additional "
+        "conversions generate enough profit to cover advertising costs."
     )
 
     # Section 4: Technical details
