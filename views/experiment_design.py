@@ -6,13 +6,13 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="Can better product-page information increase sales?",
+        title="Can Better Product-Page Information Increase Sales?",
         subtitle=(
-        "Designing an A/B test to determine whether clearer "
-        "shipping and return information increases purchases "
-        "among first-time product viewers."
-    ),
-        eyebrow="Experiment design · Proposed, not yet run",
+            "Designing an A/B test to determine whether clearer "
+            "shipping and return information increases purchases "
+            "among first-time product viewers."
+        ),
+        eyebrow="Experiment Design · Proposed, not yet run",
     )
 
 
@@ -25,7 +25,23 @@ def render():
         "This experiment is designed to test that hypothesis."
     )
 
+    st.subheader("🧭 From Insight to Experiment")
 
+    steps = [
+        ("1. Opportunity", "Low product-view-to-cart progression"),
+        ("2. Hypothesis", "Clearer product information may reduce hesitation"),
+        ("3. Experiment", "Randomized A/B test measuring purchases"),
+        ("4. Decision", "Evaluate conversion lift and business impact"),
+    ]
+
+    cols = st.columns(4)
+
+    for col, (title, description) in zip(cols, steps):
+        with col:
+            st.markdown(f"**{title}**")
+            st.caption(description)
+
+    
     st.subheader("🔀 Two Experiences to Compare")
 
     control_col, treatment_col = st.columns(2)
@@ -48,7 +64,7 @@ def render():
         )
 
     st.write(
-        "**Participants:** : First-time visitors who view a product.  \n"
+        "**Participants:** First-time visitors who view a product.  \n"
         "**Assignment:** Random 50/50 split; each user keeps the same version.  \n"
         "**Primary metric:** Percentage of eligible users who purchase."
     )
@@ -74,6 +90,14 @@ def render():
         "The test is planned to detect an increase from 3.36% "
         "to 4.032% purchase conversion—about 7 additional "
         "purchasers per 1,000 eligible users."
+    )
+
+    st.subheader("How Would We Decide?")
+
+    st.write(
+        "If the revised page produces a statistically reliable "
+        "and commercially meaningful increase in purchases, "
+        "it would be a candidate for rollout."
     )
 
     with st.expander("Sample size, duration, and planning assumptions"):
