@@ -88,6 +88,33 @@ def render():
         f"**{lift * 100:.0f} additional conversions per 10,000 users**."
     )
 
+    
+    # Statistical and business significance
+    st.subheader("📊 Is the improvement meaningful?")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("**Statistical significance**")
+        st.write(
+            "The result is statistically significant "
+            "(p < 0.001). The 95% confidence interval "
+            f"ranges from +{lower:.4f} to +{upper:.4f} "
+            "percentage points, suggesting a positive "
+            "effect beyond random variation."
+        )
+
+    with col2:
+        st.markdown("**Business significance**")
+        st.write(
+            f"The improvement translates to approximately "
+            f"{lift * 1000:.0f} additional conversions "
+            "per 100,000 users eligible for advertising. "
+            "Whether this is profitable depends on "
+            "advertising costs and conversion value."
+        )
+
+    
     # Section 3: Business recommendation
     st.subheader("💡 Business takeaway")
 
