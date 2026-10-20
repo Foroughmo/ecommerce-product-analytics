@@ -55,7 +55,7 @@ The Criteo analysis compares users by treatment assignment, regardless of actual
 | 95% confidence interval for absolute lift | +0.0864 to +0.1360 percentage points |
 | Two-sided two-proportion z-test p-value | Approximately 7.24 × 10⁻¹⁴ |
 
-The difference corresponds to approximately **111 incremental conversions per 100,000 users assigned to treatment** (95% CI: approximately 86–136). This is a rescaling of the benchmark estimate, not a production forecast.
+The difference corresponds to approximately **111 incremental conversions per 100,000 users assigned to treatment** (95% CI: approximately 86–136).
 
 **Business decision:** Statistical significance alone does not justify rollout. Validate the effect in production, then assess whether incremental contribution exceeds campaign costs and meets the business return threshold while maintaining guardrails. Campaign costs and contribution margins are unavailable in this analysis, so profitability remains unresolved.
 
