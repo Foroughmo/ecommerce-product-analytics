@@ -91,7 +91,7 @@ def render():
     
     
     # Section 3: Statistical and business significance
-    st.subheader("📊 Is the improvement meaningful?")
+    st.subheader("📊 Statistical and Practical Significance")
 
     left, right = st.columns(2)
 
@@ -123,11 +123,10 @@ def render():
     # Section 3: Business recommendation
     st.subheader("💡 Business takeaway")
 
-    takeaway(
-        "Advertising increased conversions in this experiment, "
-        "with statistically significant results. "
-        "Before scaling, evaluate whether the additional "
-        "conversions generate enough profit to cover advertising costs."
+   takeaway(
+        "Recommendation: Consider scaling advertising, "
+        "subject to confirming that incremental conversion value "
+        "exceeds advertising costs and key guardrails remain stable."
     )
 
     # Section 4: Technical details
