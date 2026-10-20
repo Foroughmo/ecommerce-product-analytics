@@ -91,7 +91,7 @@ def render():
     
     
     # Section 3: Statistical and business significance
-    st.subheader("📊 Statistical and Practical Significance")
+    st.subheader("📊 Statistical and Business Significance")
 
     left, right = st.columns(2)
 
