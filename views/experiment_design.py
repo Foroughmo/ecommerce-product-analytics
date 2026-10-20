@@ -166,8 +166,7 @@ def render():
         st.caption(
             "The 45-day estimate assumes future eligible traffic "
             "remains similar to the historical average of 553.6 users "
-            "per day. It excludes any additional purchase follow-up "
-            "period and assumes all eligible users can participate."
+            "per day. "
         )
 
         st.markdown("#### Alternative scenarios")
