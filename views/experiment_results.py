@@ -6,15 +6,30 @@ from shared.styling import insight_card, page_header, takeaway
 
 
 
-def render():
-    page_header(
-        title="Does Advertising Actually Increase Conversions?",
-        subtitle=(
-            "Analyzing a real randomized experiment to measure "
-            "whether advertising targeting leads to more conversions."
-        ),
-        eyebrow="Experiment results · Criteo",
+
+    st.subheader("🔎 Did advertising make a difference?")
+
+    left, right = st.columns(2)
+
+    with left:
+        st.metric(
+            "Control conversion rate",
+            f"{control_rate:.3f}%"
+        )
+    
+    with right:
+        st.metric(
+            "Treatment conversion rate",
+            f"{treatment_rate:.3f}%"
+        )
+    
+    st.markdown(
+        f"**Result: {relative_lift:+.1f}% higher conversion rate** "
+        "among users eligible for advertising, equivalent to "
+        f"approximately {lift * 100:.1f} additional conversions "
+        "per 10,000 users."
     )
+
 
 
 
