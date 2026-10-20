@@ -123,11 +123,19 @@ def render():
     # Section 4: Business recommendation
     st.subheader("💡 Business takeaway")
 
+    
     takeaway(
-            "Recommendation: The results support expanding advertising, "
-        "but first we need to confirm that the revenue from "
-        "additional purchases outweighs the cost of running the ads."
-        )
+        "The experiment provides strong evidence that treatment "
+        "increases conversion. The result is statistically significant, "
+        "with an entirely positive confidence interval. "
+        "At scale, this translates to approximately 111 additional "
+        "conversions per 100,000 users assigned to treatment. "
+        "\n\n"
+        "Recommendation: Scale the treatment if the value of additional "
+        "conversions exceeds advertising costs and key guardrail "
+        "metrics remain stable."
+    )
+
 
     # Section 5: Technical details
     with st.expander("Statistical methodology"):
