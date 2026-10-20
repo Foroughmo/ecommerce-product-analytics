@@ -7,23 +7,42 @@ from shared.styling import page_header, takeaway
 
 def render():
     page_header(
-        title="Did advertising increase conversion?",
-        subtitle="Overall treatment effect in the Criteo advertising benchmark.",
+        title="Does Advertising Actually Increase Conversions?",
+        subtitle=(
+            "Analyzing a real randomized experiment to measure "
+            "whether advertising targeting leads to more conversions."
+        ),
         eyebrow="Experiment results · Criteo",
     )
 
-    st.subheader(" ⚒️ What was tested?")
+
+
+    st.subheader("⚒️ How was the experiment conducted?")
+    
     st.write(
-        "Criteo's dataset comes from randomized advertising experiments: "
-        "the treatment group was eligible for advertising targeting, while "
-        "the control group was withheld from targeting. This analysis compares "
-        "conversion rates across a sample of 1 million users to estimate the "
-        "incremental response to treatment assignment."
+        "We analyzed 1 million users from Criteo's randomized "
+        "advertising experiments to determine whether advertising "
+        "increases conversions. Users were randomly assigned "
+        "to two groups:"
     )
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**Control group**")
+        st.metric("Users", "149,825")
+        st.write("Excluded from advertising targeting.")
+    
+    with col2:
+        st.markdown("**Treatment group**")
+        st.metric("Users", "850,175")
+        st.write("Eligible to receive advertising.")
+    
     st.caption(
-        "This advertising analysis is separate from the proposed GA4 "
-        "product-page experiment. Conversion rate = converted users / assigned users."
+        "Not all users eligible for advertising necessarily saw an ad. "
+        "This analysis is separate from the proposed GA4 product-page experiment."
     )
+
 
     results = load_experiment_results()
     overall = results.loc[results["segment"] == "Overall"].iloc[0]
@@ -34,34 +53,35 @@ def render():
     upper = float(overall["ci_upper_pp"])
     relative_lift = lift / control_rate * 100 if control_rate else None
 
-    st.subheader(" 🔎 What did we find?")
-    st.dataframe(
-        pd.DataFrame({
-            "Assignment": ["Control", "Treatment"],
-            "Users": [149_825, 850_175],
-            "Conversions": [281, 2_540],
-            "Conversion rate": [
-                f"{control_rate:.4f}%",
-                f"{treatment_rate:.4f}%",
-            ],
-        }),
-        hide_index=True,
+    
+    st.subheader("🔎 Did advertising make a difference?")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.metric(
+            "Control conversion rate",
+            f"{control_rate:.3f}%"
+        )
+        st.caption("281 of 149,825 users converted.")
+    
+    with col2:
+        st.metric(
+            "Treatment conversion rate",
+            f"{treatment_rate:.3f}%"
+        )
+        st.caption("2,540 of 850,175 users converted.")
+    
+    st.metric(
+        "Increase in conversion rate",
+        f"{relative_lift:+.1f}%"
     )
-
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Absolute lift", f"{lift:+.4f} pp")
-    col2.metric("95% confidence interval", f"{lower:+.4f} to {upper:+.4f} pp")
-    col3.metric("Relative lift", f"{relative_lift:+.1f}%" if relative_lift is not None else "N/A")
-    st.caption(
-        "Absolute lift = treatment rate − control rate; pp = percentage points. "
-        "Relative lift expresses that difference as a percentage of the control rate."
-    )
-
+    
     st.write(
-        "**Treatment conversion exceeded control in this benchmark sample.** "
-        "The confidence interval excludes zero "
-        "(two-sided two-proportion z-test: p ≈ 7.24 × 10⁻¹⁴). "
+        "**Users eligible for advertising had a 59.3% higher "
+        "conversion rate** than users excluded from targeting."
     )
+
 
     st.subheader(" 💡 What is the decision?")
 
