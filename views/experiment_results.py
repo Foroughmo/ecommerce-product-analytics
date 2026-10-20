@@ -145,12 +145,6 @@ def render():
             "numbers of users in the two groups."
         )
 
-    st.caption(
-        "This Criteo analysis is separate from the proposed GA4 "
-        "product-page experiment. Advertising eligibility does not "
-        "guarantee actual ad exposure."
-    )
-
     st.markdown(
         "[Criteo dataset documentation]"
         "(https://huggingface.co/datasets/criteo/criteo-uplift)"
