@@ -120,7 +120,7 @@ def render():
         )
 
     
-    # Section 3: Business recommendation
+    # Section 4: Business recommendation
     st.subheader("💡 Business takeaway")
 
        takeaway(
@@ -129,7 +129,7 @@ def render():
             "exceeds advertising costs and key guardrails remain stable."
         )
 
-    # Section 4: Technical details
+    # Section 5: Technical details
     with st.expander("Statistical methodology"):
         st.markdown(
             "- **Dataset:** Criteo advertising experiment, "
