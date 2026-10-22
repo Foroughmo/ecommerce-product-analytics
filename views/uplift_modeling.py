@@ -8,12 +8,12 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="Can we identify users more responsive to advertising?",
+        title="Can We Identify Users More Responsive to Advertising?",
         subtitle="Using uplift modeling to identify users most likely to benefit from advertising.",
         eyebrow="Uplift modeling · Criteo",
     )
 
-    st.subheader("🔗 Why model uplift?")
+    st.subheader("🔗 Why Model Uplift?")
     st.write(
         "The experiment showed that advertising increased purchases "
         "overall. But does it work equally well for everyone? Uplift "
@@ -23,10 +23,11 @@ def render():
 
 
     
-    st.subheader("🔍 How did we identify the top 10%?")
+    st.subheader("🔍 How Did We Identify the Top 10%?")
 
     col1, col2, col3 = st.columns(3)
 
+    
     with col1:
         insight_card(
             "01 · Train",
@@ -40,19 +41,20 @@ def render():
         insight_card(
             "02 · Rank",
             "300,000 test users",
-            "Calculate predicted uplift for each user and "
-            "select the 10% most likely to benefit from advertising.",
+            "Predict advertising's impact for each test user "
+            "and rank them from lowest to highest uplift.",
             height=215,
         )
 
     with col3:
         insight_card(
             "03 · Evaluate",
-            "30,000 selected users",
-            "Compare actual purchase rates between treatment "
-            "and control users in the selected group.",
+            "Top 10% of test users",
+            "Select 30,000 users from the test group and "
+            "compare their actual treatment and control conversion rates.",
             height=215,
         )
+
 
     st.caption(
         "Predicted uplift is used to rank users. "
