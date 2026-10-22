@@ -110,8 +110,6 @@ def render():
         "per 1,000 users assigned to treatment in this group. "
         "The confidence interval is entirely above zero."
     )
-
-
     
     st.subheader("🔎 Did the top 10% respond better than other users?")
 
@@ -135,7 +133,7 @@ def render():
         "who benefit more from advertising."
     )
     
-    st.subheader("What does this mean for the business?")
+    st.subheader(" 👤 What does this mean for the business?")
 
     takeaway(
         "The uplift model identified users who responded "
