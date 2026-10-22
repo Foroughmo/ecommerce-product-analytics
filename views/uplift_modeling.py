@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 
@@ -8,44 +9,48 @@ from shared.styling import page_header, takeaway
 def render():
     page_header(
         title="Can we identify users more responsive to advertising?",
-        subtitle="Uplift modeling to prioritize incremental conversions.",
+        subtitle="Using uplift modeling to identify users most likely to benefit from advertising.",
         eyebrow="Uplift modeling · Criteo",
     )
 
-    st.subheader(" 🔗 Why model uplift?")
+    st.subheader("🔗 Why model uplift?")
     st.write(
-        "The experiment results summarize the average response across all users. "
-        "For targeting, the next question is whether we can identify users whose "
-        "conversion probability increases more under treatment. "
-        "Uplift modeling estimates that incremental response, rather than "
-        "conversion probability alone."
+        "The experiment showed that advertising increased conversions overall. "
+        "But does it work equally well for everyone? "
+        "Uplift modeling helps identify users whose likelihood of purchasing "
+        "increases the most because of advertising, rather than simply "
+        "identifying users who are already likely to purchase."
     )
 
-    st.subheader(" 🔍 How was the segment selected?")
+    st.subheader("🔍 How did we identify these users?")
     st.markdown(
-        "1. **Train:** Fit a T-learner on 700,000 users using two logistic "
-        "regressions: one for treatment users and one for control users.\n"
-        "2. **Rank:** For each of the 300,000 test users, predict conversion "
-        "under both conditions. Rank users by the difference, and select "
-        "the highest-scoring 10% (30,000 users).\n"
-        "3. **Evaluate:** Compare actual treatment and control conversion "
-        "rates within that selected segment."
+        "1. **Train:** Use 700,000 users to train two logistic regression models: "
+        "one predicts purchases with advertising treatment, the other without it.\n"
+        "2. **Rank:** For each of the 300,000 test users, calculate the difference "
+        "between the two predictions (predicted uplift). "
+        "Select the top 10% (30,000 users) with the highest predicted uplift.\n"
+        "3. **Evaluate:** Compare actual purchase rates between treatment "
+        "and control users within the selected group."
     )
+
     st.caption(
-        "Predicted uplift determines the ranking. Observed lift is the "
-        "treatment–control difference measured during evaluation. "
-        "The top 10% is a ranking cutoff, not a conversion probability."
+        "Predicted uplift is the model's estimate of advertising's impact. "
+        "Observed lift is the actual difference measured between treatment and control."
     )
 
     results = load_experiment_results()
-    top = results.loc[results["segment"] == "Top 10% predicted uplift"].iloc[0]
+    top = results.loc[
+        results["segment"] == "Top 10% predicted uplift"
+    ].iloc[0]
+
     control_rate = float(top["control_conversion_pct"])
     treatment_rate = float(top["treatment_conversion_pct"])
     lift = float(top["lift_pp"])
     lower = float(top["ci_lower_pp"])
     upper = float(top["ci_upper_pp"])
 
-    st.subheader(" 💡 What did we observe in the top 10%?")
+    st.subheader("💡 What did we find in the top 10%?")
+
     st.dataframe(
         pd.DataFrame({
             "Assignment": ["Control", "Treatment"],
@@ -60,48 +65,68 @@ def render():
     )
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Observed lift", f"{lift:+.4f} pp")
-    col2.metric("95% confidence interval", f"{lower:+.4f} to {upper:+.4f} pp")
-    col3.metric("P-value", "0.00115")
-    st.caption("Observed lift = treatment conversion − control conversion; pp = percentage points.")
 
-    st.write(
-        "**Treatment conversion exceeded control within the selected segment.** "
-        f"The observed difference corresponds to about {lift * 10:.1f} additional "
-        "conversions per 1,000 users assigned to treatment in this segment. "
-        "Its confidence interval excludes zero."
+    col1.metric(
+        "Conversion lift",
+        f"{lift:+.4f} pp"
+    )
+    col2.metric(
+        "95% confidence interval",
+        f"{lower:+.4f} to {upper:+.4f} pp"
+    )
+    col3.metric(
+        "P-value",
+        "0.00115"
     )
 
-    st.subheader("What does this support?")
+    st.caption(
+        "Lift = treatment conversion rate − control conversion rate. "
+        "pp = percentage points."
+    )
+
+    st.write(
+        "**Advertising significantly increased conversions in the top 10%.** "
+        f"The estimated increase was about {lift * 10:.1f} additional purchases "
+        "per 1,000 users assigned to treatment in this group. "
+        "The confidence interval is entirely above zero."
+    )
+
+    st.subheader("What does this mean for the business?")
+
     takeaway(
-        "The top-ranked segment is a candidate for a follow-up targeting "
-        "experiment. This exploratory result does not establish that "
-        "targeting 10% is optimal or more profitable than broader targeting."
+        "The top 10% is a promising group for targeted advertising. "
+        "Focusing on these users could improve advertising efficiency, "
+        "but further testing is needed before recommending a targeted rollout."
     )
+
     st.write(
-        "The segment's estimated lift is numerically higher than the overall "
-        "estimate, but those estimates use different evaluation populations. "
-        "The reported p-value tests the treatment–control difference within "
-        "the segment; it does not test whether the segment responds more "
-        "strongly than other users."
+        "Although this group showed a larger estimated lift than the overall "
+        "experiment, we still need to confirm whether it responds significantly "
+        "better than the remaining 90%. We also need to consider advertising "
+        "costs and the value of additional purchases."
     )
 
     with st.expander("Model and evaluation details"):
         st.markdown(
-            "- **Features:** 12 anonymized numeric variables, f0–f11. Their "
-            "business meanings are unavailable.\n"
-            "- **Preprocessing:** A separate StandardScaler in each logistic "
-            "regression pipeline, fitted on training data only.\n"
-            "- **Split:** 70% training / 30% test, jointly stratified by "
-            "treatment and conversion.\n"
-            "- **Model settings:** Logistic regression, max_iter = 1,000.\n"
-            "- **Ranking:** Test users grouped into predicted-uplift deciles; "
-            "the highest decile is evaluated here.\n"
-            "- **Inference:** Two-sided two-proportion z-test and a normal "
-            "95% confidence interval using the unpooled standard error.\n"
-            "- **Validation:** Model or cutoff changes informed by these "
-            "results require fresh evaluation data."
+            "- **Features:** 12 anonymized user variables (f0–f11). "
+            "Their business meanings are unknown.\n"
+            "- **Preprocessing:** Features standardized separately for "
+            "each model using training data only.\n"
+            "- **Data split:** 70% training / 30% testing, stratified by "
+            "treatment assignment and conversion.\n"
+            "- **Model:** T-learner using two logistic regression models "
+            "(max_iter=1,000).\n"
+            "- **Ranking:** Test users divided into 10 groups based on "
+            "predicted uplift; the highest-ranked 10% was selected.\n"
+            "- **Statistical testing:** Two-sided two-proportion z-test "
+            "and 95% confidence interval for the observed conversion lift.\n"
+            "- **Limitation:** The significance test confirms a positive "
+            "effect within the selected group, not that its effect is "
+            "significantly larger than in the remaining users.\n"
+            "- **Next step:** Validate targeting performance using fresh "
+            "data before deployment."
         )
+
     st.markdown(
         "[Criteo dataset documentation]"
         "(https://huggingface.co/datasets/criteo/criteo-uplift)"
