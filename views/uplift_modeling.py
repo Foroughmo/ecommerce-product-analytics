@@ -15,14 +15,13 @@ def render():
 
     st.subheader("🔗 Why model uplift?")
     st.write(
-        "The experiment showed that advertising increased conversions overall. "
-        "But does it work equally well for everyone? "
-        "Uplift modeling helps identify users whose likelihood of purchasing "
-        "increases the most because of advertising, rather than simply "
-        "identifying users who are already likely to purchase."
+        "The experiment showed that advertising increased purchases "
+        "overall. But does it work equally well for everyone? Uplift "
+        "modeling helps identify users who are more likely to purchase "
+        "because of advertising, so we can target ads more effectively."
     )
 
-    st.subheader("🔍 How did we identify these users?")
+    st.subheader("🔍 How did we identify high-impact users?")
     st.markdown(
         "1. **Train:** Use 700,000 users to train two logistic regression models: "
         "one predicts purchases with advertising treatment, the other without it.\n"
@@ -49,6 +48,79 @@ def render():
     lower = float(top["ci_lower_pp"])
     upper = float(top["ci_upper_pp"])
 
+
+    
+    st.subheader("🔍 How did we identify the top 10%?")
+
+    steps = [
+        (
+            "1. Train",
+            "700,000",
+            "users",
+            "Train two models to predict purchases with and without advertising.",
+        ),
+        (
+            "2. Rank",
+            "300,000",
+            "test users",
+            "Rank by predicted advertising impact and select the top 10%.",
+        ),
+        (
+            "3. Evaluate",
+            "30,000",
+            "selected users",
+            "Compare actual conversion rates between treatment and control.",
+        ),
+    ]
+
+    cols = st.columns(3)
+
+    for col, (title, number, label, description) in zip(cols, steps):
+        with col:
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: #FFFFFF;
+                    border: 1px solid #E1E6EF;
+                    border-radius: 12px;
+                    padding: 20px;
+                    min-height: 205px;
+                    box-sizing: border-box;
+                ">
+                    <div style="
+                        color: #172B4D;
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin-bottom: 12px;
+                    ">{title}</div>
+                    <div style="
+                        color: #172B4D;
+                        font-size: 27px;
+                        font-weight: 700;
+                    ">{number}</div>
+                    <div style="
+                        color: #66758C;
+                        font-size: 13px;
+                        margin-bottom: 12px;
+                    ">{label}</div>
+                    <div style="
+                        color: #344563;
+                        font-size: 15px;
+                        line-height: 1.5;
+                    ">{description}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    st.caption(
+        "Predicted uplift determines who is selected; "
+        "observed lift measures the actual treatment effect."
+    )
+
+
+    
+    
     st.subheader("💡 What did we find in the top 10%?")
 
     st.dataframe(
