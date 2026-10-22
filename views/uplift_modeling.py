@@ -58,7 +58,19 @@ def render():
         "Predicted uplift is used to rank users. "
         "Observed lift measures the actual difference "
         "between treatment and control."
-    )    
+    )  
+    
+    results = load_experiment_results()
+    top = results.loc[
+        results["segment"] == "Top 10% predicted uplift"
+    ].iloc[0]
+
+    control_rate = float(top["control_conversion_pct"])
+    treatment_rate = float(top["treatment_conversion_pct"])
+    lift = float(top["lift_pp"])
+    lower = float(top["ci_lower_pp"])
+    upper = float(top["ci_upper_pp"])
+
     
     st.subheader("💡 What did we find in the top 10%?")
 
