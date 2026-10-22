@@ -113,6 +113,31 @@ def render():
 
 
     
+    st.subheader("🔎 Did the top 10% respond better than other users?")
+
+    comparison = pd.DataFrame({
+        "User group": ["Top 10%", "Other 90%"],
+        "Conversion lift": ["+0.8234 pp", "+0.0191 pp"],
+    })
+
+    st.dataframe(comparison, hide_index=True)
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Difference in lift", "+0.8043 pp")
+    col2.metric("95% confidence interval", "+0.3722 to +1.2365 pp")
+    col3.metric("P-value", "0.000265")
+
+    st.write(
+        "**Yes. The top 10% responded significantly better to advertising.** "
+        "The difference between the two groups was statistically significant "
+        "(p < 0.05), supporting the model's ability to identify users "
+        "who benefit more from advertising."
+    )
+
+
+    
+    
     st.subheader("What does this mean for the business?")
 
     takeaway(
