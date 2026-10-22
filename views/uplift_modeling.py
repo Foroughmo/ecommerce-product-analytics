@@ -134,23 +134,14 @@ def render():
         "(p < 0.05), supporting the model's ability to identify users "
         "who benefit more from advertising."
     )
-
-
-    
     
     st.subheader("What does this mean for the business?")
 
     takeaway(
-        "The top 10% is a promising group for targeted advertising. "
-        "Focusing on these users could improve advertising efficiency, "
-        "but further testing is needed before recommending a targeted rollout."
-    )
-
-    st.write(
-        "Although this group showed a larger estimated lift than the overall "
-        "experiment, we still need to confirm whether it responds significantly "
-        "better than the remaining 90%. We also need to consider advertising "
-        "costs and the value of additional purchases."
+        "The uplift model identified users who responded "
+        "significantly better to advertising. The top 10% showed "
+        "a conversion lift of 0.82 percentage points, compared "
+        "with just 0.02 percentage points for the remaining users."
     )
 
     with st.expander("Model and evaluation details"):
