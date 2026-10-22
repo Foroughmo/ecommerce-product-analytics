@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 from shared.data import load_experiment_results
-from shared.styling import page_header, takeaway
+from shared.styling import insight_card, page_header, takeaway
 
 
 def render():
@@ -21,33 +21,46 @@ def render():
         "because of advertising, so we can target ads more effectively."
     )
 
-    st.subheader("🔍 How did we identify high-impact users?")
-    st.markdown(
-        "1. **Train:** Use 700,000 users to train two logistic regression models: "
-        "one predicts purchases with advertising treatment, the other without it.\n"
-        "2. **Rank:** For each of the 300,000 test users, calculate the difference "
-        "between the two predictions (predicted uplift). "
-        "Select the top 10% (30,000 users) with the highest predicted uplift.\n"
-        "3. **Evaluate:** Compare actual purchase rates between treatment "
-        "and control users within the selected group."
-    )
+
+    
+    st.subheader("🔍 How did we identify the top 10%?")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        insight_card(
+            "01 · Train",
+            "700,000 users",
+            "Train two logistic regression models to predict "
+            "purchases with and without advertising.",
+            height=215,
+        )
+
+    with col2:
+        insight_card(
+            "02 · Rank",
+            "300,000 test users",
+            "Calculate predicted uplift for each user and "
+            "select the 10% most likely to benefit from advertising.",
+            height=215,
+        )
+
+    with col3:
+        insight_card(
+            "03 · Evaluate",
+            "30,000 selected users",
+            "Compare actual purchase rates between treatment "
+            "and control users in the selected group.",
+            height=215,
+        )
 
     st.caption(
-        "Predicted uplift is the model's estimate of advertising's impact. "
-        "Observed lift is the actual difference measured between treatment and control."
+        "Predicted uplift is used to rank users. "
+        "Observed lift measures the actual difference "
+        "between treatment and control."
     )
 
-    results = load_experiment_results()
-    top = results.loc[
-        results["segment"] == "Top 10% predicted uplift"
-    ].iloc[0]
-
-    control_rate = float(top["control_conversion_pct"])
-    treatment_rate = float(top["treatment_conversion_pct"])
-    lift = float(top["lift_pp"])
-    lower = float(top["ci_lower_pp"])
-    upper = float(top["ci_upper_pp"])
-
+    
 
     
     st.subheader("🔍 How did we identify the top 10%?")
