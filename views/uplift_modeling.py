@@ -74,20 +74,25 @@ def render():
     upper = float(top["ci_upper_pp"])
 
     
-    st.subheader("💡 What did we find in the top 10%?")
+    st.subheader("💡 Did advertising work better for the top 10%?")
 
-    st.dataframe(
-        pd.DataFrame({
-            "Assignment": ["Control", "Treatment"],
-            "Users": [4_228, 25_772],
-            "Conversions": [71, 645],
-            "Conversion rate": [
-                f"{control_rate:.4f}%",
-                f"{treatment_rate:.4f}%",
-            ],
-        }),
-        hide_index=True,
-    )
+    left, right = st.columns(2)
+
+    with left:
+        insight_card(
+            "Control · No advertising treatment",
+            f"{control_rate:.4f}% conversion",
+            "4,228 users · 71 purchases",
+            height=170,
+        )
+
+    with right:
+        insight_card(
+            "Treatment · Advertising",
+            f"{treatment_rate:.4f}% conversion",
+            "25,772 users · 645 purchases",
+            height=170,
+        )
 
     col1, col2, col3 = st.columns(3)
 
@@ -95,26 +100,29 @@ def render():
         "Conversion lift",
         f"{lift:+.4f} pp"
     )
+
     col2.metric(
         "95% confidence interval",
         f"{lower:+.4f} to {upper:+.4f} pp"
     )
+
     col3.metric(
         "P-value",
         "0.00115"
     )
 
     st.caption(
-        "Lift = treatment conversion rate − control conversion rate. "
+        "Conversion lift = treatment rate − control rate. "
         "pp = percentage points."
     )
 
     st.write(
-        "**Advertising significantly increased conversions in the top 10%.** "
-        f"The estimated increase was about {lift * 10:.1f} additional purchases "
-        "per 1,000 users assigned to treatment in this group. "
-        "The confidence interval is entirely above zero."
+        "**Advertising increased purchases in the top 10%.** "
+        f"The estimated effect is about {lift * 10:.1f} additional "
+        "purchases per 1,000 users assigned to treatment. "
+        "The result is statistically significant."
     )
+
 
     st.subheader("What does this mean for the business?")
 
