@@ -12,9 +12,9 @@ A product data science case study connecting conversion-funnel analysis, A/B tes
 
 The project uses two independent datasets. **GA4 supports product analysis and a proposed product-page experiment. Criteo supports a separate advertising experiment analysis and uplift model.** The Criteo results do not evaluate the proposed GA4 change.
 
-## Key findings
+## Key Findings
 
-### Product analytics: the largest drop-off occurs before cart addition
+### Product Analytics: the largest drop-off occurs before cart addition
 
 An ordered, session-level funnel tracks **product view → add to cart → checkout → purchase**. Only **17.88%–18.93%** of product-view sessions reach the cart across devices.
 
