@@ -53,7 +53,7 @@ def render():
     with left:
         insight_card(
             "Google Analytics (GA4) · Shopping Behavior",
-            "Follow the path to purchase",
+            "Follow the Path to Purchase",
             "This dataset contains anonymized activity from the "
             "Google Merchandise Store, an online shop selling "
             "Google-branded products. "
@@ -67,7 +67,7 @@ def render():
     with right:
         insight_card(
             "Advertising Experiment · Criteo",
-            "Does advertising lead to more purchases?",
+            "Does Advertising Lead to More Purchases?",
             "We analyze 1 million records from Criteo’s public "
             "advertising experiment dataset. It includes treatment "
             "and control groups, allowing us to estimate whether "
@@ -142,7 +142,7 @@ def render():
                 "Planning estimate",
                 "24,696 participants",
                 "12,348 users per group. Estimated experiment duration: "
-                "about 45 days, plus purchase follow-up, ",
+                "about 45 days, plus purchase follow-up ",
                 height=220,
             )
 
@@ -156,7 +156,7 @@ def render():
         )
 
     with st.expander("See the numbers and methodology"):
-        st.markdown("#### Shopping journey")
+        st.markdown("#### Shopping Journey")
 
         st.markdown(
             f"- **Reach the cart:** {min_cart_rate:.1f}%–"
