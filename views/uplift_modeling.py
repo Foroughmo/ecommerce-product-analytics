@@ -175,7 +175,7 @@ def render():
         "who benefit more from advertising."
     )
 
-    # Business recommendation
+    # Business Recommendation
     st.subheader("👤 What Does This Mean for the Business?")
 
     takeaway(
@@ -193,8 +193,8 @@ def render():
         "the value of additional purchases."
     )
 
-    # Technical methodology
-    with st.expander("Model and evaluation details"):
+    # Technical Methodology
+    with st.expander("Model and Evaluation Details"):
         st.markdown(
             "- **Features:** 12 anonymized user variables (f0–f11). "
             "Their business meanings are unknown.\n"
