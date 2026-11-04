@@ -15,7 +15,7 @@ def render():
 
     st.write(
         "The analysis tracks how many shopping sessions reach each "
-        "stage of the funnel. Each session represents a store visit,"
+        "stage of the funnel. Each session represents a store visit, "
         "and a user may have multiple sessions."
     )
 
@@ -201,7 +201,7 @@ def render():
             "- **Completion rate:** Full-funnel purchase sessions "
             "divided by product-view sessions.\n"
             "- **Step conversion:** Step conversion measures the percentage of "
-            "shopping sessions that move from one funnel stage to the next."
+            "shopping sessions that move from one funnel stage to the next. "
             "Sessions reaching the next step divided by sessions reaching "
             "the current step."
         )
@@ -214,8 +214,7 @@ def render():
 
         st.write(
             "The proposed test targets first-time product viewers, "
-            "a narrower population than this funnel. Shipping and "
-            "return uncertainty remain hypotheses."
+            "a narrower population than this funnel. "
         )
 
     with st.expander("View the exported data"):
