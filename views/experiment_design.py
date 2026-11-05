@@ -156,15 +156,11 @@ def render():
             "size, plus purchase follow-up."
         )
 
-        st.write(
-            "Sample size was calculated in Python using "
-            "statsmodels, with 80% power, a 5% significance "
-            "level, and a two-sided test."
         )
         st.caption(
             "Sample size was calculated in Python using "
             "statsmodels, with 80% power, a 5% significance "
-            "level, and a two-sided test."
+            "level, and a two-sided test.\n "
             "The 45-day estimate assumes future eligible traffic "
             "remains similar to the historical average of 553.6 users "
             "per day. "
