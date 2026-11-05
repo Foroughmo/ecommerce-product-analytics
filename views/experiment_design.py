@@ -156,7 +156,7 @@ def render():
             "size, plus purchase follow-up."
         )
 
-        )
+    
         st.caption(
             "Sample size was calculated in Python using "
             "statsmodels, with 80% power, a 5% significance "
