@@ -57,7 +57,6 @@ def render():
         "10 equally sized groups based on predicted uplift and selected "
         "the highest-ranked group (30,000 users). "
         "The 10% cutoff was chosen as a starting point, "
-        "not because it was proven to be optimal."
     )
 
     st.caption(
