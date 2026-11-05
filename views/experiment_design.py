@@ -99,7 +99,7 @@ def render():
     st.write(
         "**Participants:** First-time visitors who view a product.  \n"
         "**Assignment:** Random 50/50 split; each user keeps the same version.  \n"
-        "**Primary metric:** Percentage of eligible users who purchase."
+        "**Primary Metric:** Percentage of eligible users who purchase."
     )
 
     st.subheader("📏 Sample Size and Duration")
@@ -115,8 +115,6 @@ def render():
         "Why 20%? Detecting smaller improvements would require "
         "a much longer experiment. A 20% relative lift offers a "
         "practical balance between sensitivity and duration. "
-        "This is the improvement the test is designed to detect, "
-        "not a prediction of the outcome."
     )
 
     takeaway(
@@ -164,6 +162,9 @@ def render():
             "level, and a two-sided test."
         )
         st.caption(
+            "Sample size was calculated in Python using "
+            "statsmodels, with 80% power, a 5% significance "
+            "level, and a two-sided test."
             "The 45-day estimate assumes future eligible traffic "
             "remains similar to the historical average of 553.6 users "
             "per day. "
