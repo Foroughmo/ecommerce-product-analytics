@@ -8,7 +8,7 @@ from shared.styling import insight_card, page_header, takeaway
 
 def render():
     page_header(
-        title="Can We Identify Users More Responsive to Advertising?",
+        title="Who Is Most Likely to Be Influenced by Advertising?",
         subtitle="Using uplift modeling to identify users most likely to benefit from advertising.",
         eyebrow="Uplift modeling · Criteo",
     )
