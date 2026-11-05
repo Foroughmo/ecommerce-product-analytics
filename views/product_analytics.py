@@ -207,12 +207,6 @@ def render():
         )
 
         st.write(
-            "Shoppers may purchase later or follow a different path. "
-            "The funnel does not establish why they stop progressing "
-            "or whether device differences cause conversion differences."
-        )
-
-        st.write(
             "The proposed test targets first-time product viewers, "
             "a narrower population than this funnel. "
         )
