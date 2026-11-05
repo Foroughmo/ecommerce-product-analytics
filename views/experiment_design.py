@@ -170,7 +170,7 @@ def render():
             "per day. "
         )
 
-        st.markdown("#### Alternative scenarios")
+        st.markdown("#### Alternative Scenarios")
 
         st.write(
             "Detecting smaller improvements requires more users "
