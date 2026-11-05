@@ -8,7 +8,7 @@ from shared.styling import page_header, takeaway
 
 def render():
     page_header(
-        title="Where do shoppers drop off?",
+        title="Where Do Potential Buyers Drop Off?",
         subtitle="Analyzing the shopping funnel from product view to purchase to identify key drop-off points.",
         eyebrow="Product analytics · GA4",
     )
